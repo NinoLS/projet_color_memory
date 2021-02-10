@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ColorMemory</string>
+    <string name="facile">facile</string>
+    <string name="difficile">difficile</string>
+    <string name="expert">expert</string>
+    <string name="chrono">chrono</string>
+    <string name="score">Score:</string>
 </resources>

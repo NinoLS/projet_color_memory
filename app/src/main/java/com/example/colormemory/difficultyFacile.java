@@ -61,19 +61,19 @@ public class difficultyFacile extends AppCompatActivity {
     {
         if(manche < 3)
         {
-            allumeBouton(view,niveau,manche,0);
+            allumeBouton(view,niveau,manche,0, 0+manche);
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    public void allumeBouton(View view,int niveau,int manche,int button_count)
+    public void allumeBouton(View view,int niveau,int manche,int button_count,final int BUTTON_COUNT_MAX)
     {
-        if(button_count < 4)
+        if(button_count <= BUTTON_COUNT_MAX)
         {
             byte random_index;
             random_index = (byte) Math.floor(Math.random() * (4 + niveau)); //de 1 à 4
             btns[random_index].setBackgroundColor(Color.RED);
-            btns[random_index].setText(String.valueOf(button_count));
+            btns[random_index].setText(String.valueOf(button_count+1));
             new CountDownTimer(1700, 1500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -83,7 +83,7 @@ public class difficultyFacile extends AppCompatActivity {
                 public void onFinish() {
                     btns[random_index].setBackgroundColor(R.color.purple_700);
                     btns[random_index].setText("");
-                    allumeBouton(view, niveau, manche, button_count + 1);
+                    allumeBouton(view, niveau, manche, button_count + 1,BUTTON_COUNT_MAX);
 
                 }
             }.start();

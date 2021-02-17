@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Login title-->
     <TextView
         android:id="@+id/txt_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:text="@string/login"
+        android:text="Login"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Login input-->
     <EditText
         android:id="@+id/edit_loginName"
         android:layout_width="wrap_content"
@@ -29,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_login" />
 
+    <!-- Password input -->
     <EditText
         android:id="@+id/edit_loginPassword"
         android:layout_width="wrap_content"
@@ -40,6 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_loginName" />
 
+    <!-- Button connect -->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -50,11 +54,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_loginPassword" />
 
+    <!-- Sign Up -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
-        tools:layout_editor_absoluteX="235dp"
-        tools:layout_editor_absoluteY="550dp" />
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:scaleX="0"
+        android:scaleY="0"
+        android:text="@string/sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

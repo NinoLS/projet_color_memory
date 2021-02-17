@@ -5,4 +5,8 @@
     <string name="expert">expert</string>
     <string name="chrono">chrono</string>
     <string name="score">Score:</string>
+    <string name="start" />
+    <string name="login">login</string>
+    <string name="connect">connect</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

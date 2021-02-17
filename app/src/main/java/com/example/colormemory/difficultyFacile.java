@@ -2,9 +2,14 @@ package com.example.colormemory;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
+
+import java.util.Timer;
 
 import static java.lang.Thread.sleep;
 
@@ -19,6 +24,7 @@ public class difficultyFacile extends AppCompatActivity {
     Button btn_bas;
     Button btn_haut;
     Button[] btns;
+    int count =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +42,37 @@ public class difficultyFacile extends AppCompatActivity {
         btns[2] = btn_bas;
         btns[3] = btn_haut;
 
-        //séquences parties
-        startManche((byte)0);
 
     }
 
-    private void startManche(byte manche)
+    public void startNiveauFacile(View view) {
+        count = 0;
+        startManche(view);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public void startManche(View view)
     {
-        byte random_index;
-        for(int i=0;i<3;i++)
+        if(count <= 3)
         {
+            byte random_index;
             random_index = (byte)Math.floor(Math.random()*4); //de 1 à 4
             btns[random_index].setBackgroundColor(Color.RED);
-            //Thread.sleep(2000);
+            btns[random_index].setText(String.valueOf(count));
+            new CountDownTimer(1700,1500)
+            {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
 
+                @Override
+                public void onFinish() {
+                    btns[random_index].setBackgroundColor(R.color.purple_700);
+                    btns[random_index].setText("");
+                    startManche(view);
+                    count++;
+                }
+            }.start();
         }
-
     }
-
 }

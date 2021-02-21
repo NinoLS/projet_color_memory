@@ -18,7 +18,11 @@ public class ScoreData {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        if(score <= 0){
+            throw new IllegalArgumentException();
+        }else{
+            this.score = score;
+        }
     }
 
     public String getPlayer() {
@@ -26,7 +30,12 @@ public class ScoreData {
     }
 
     public void setPlayer(String player) {
-        this.player = player;
+        if(player != ""){
+            this.player = player;
+        }else{
+            throw new IllegalArgumentException();
+        }
+
     }
 
     public int getIdScore() {

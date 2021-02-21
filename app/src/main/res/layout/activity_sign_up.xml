@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SignUpActivity">
 
-    <!-- Login title-->
     <TextView
-        android:id="@+id/txt_login"
+        android:id="@+id/signUp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:text="Login"
+        android:layout_marginTop="24dp"
+        android:text="@string/sign_up"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <!-- Login input-->
     <EditText
-        android:id="@+id/edit_loginName"
+        android:id="@+id/login_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -30,11 +30,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_login" />
+        app:layout_constraintTop_toBottomOf="@+id/signUp_title" />
 
     <!-- Password input -->
     <EditText
-        android:id="@+id/edit_loginPassword"
+        android:id="@+id/password_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -43,30 +43,45 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_loginName" />
+        app:layout_constraintTop_toBottomOf="@+id/login_input"
+        tools:ignore="TextFields" />
 
-    <!-- Button connect -->
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- Date input -->
+    <DatePicker
+        android:id="@+id/birthDate_input"
+        android:layout_width="228dp"
+        android:layout_height="178dp"
         android:layout_marginTop="16dp"
-        android:text="@string/connect"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:ems="10"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_loginPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/birthDate_text" />
 
-    <!-- Sign Up Button -->
-    <Button
-        android:id="@+id/button2"
+    <!-- Birth date -->
+    <TextView
+        android:id="@+id/birthDate_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="GoTo"
-        android:text="@string/sign_up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="32dp"
+        android:text="@string/birth"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/register"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthDate_input" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

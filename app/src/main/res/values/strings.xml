@@ -7,4 +7,8 @@
     <string name="score">Score:</string>
     <string name="sign_up">Sign Up</string>
     <string name="connect">Connect</string>
+    <string name="birth">Birth</string>
+    <string name="register">Register</string>
+    <string name="name_hint">Name</string>
+    <string name="password_hint">Password</string>
 </resources>

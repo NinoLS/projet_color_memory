@@ -1,6 +1,8 @@
 package database;
 
 
+import android.widget.DatePicker;
+
 import androidx.annotation.NonNull;
 
 import java.util.Date;
@@ -10,6 +12,12 @@ public class User {
     private String name;
     private String password;
     private String birth;
+
+    public User(String _name, String _password, String _birth) {
+        this.name = _name;
+        this.password = _password;
+        this.birth = _birth;
+    }
 
 
     public int getIdUser() {

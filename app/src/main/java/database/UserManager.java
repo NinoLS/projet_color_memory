@@ -46,7 +46,7 @@ public class UserManager {
     }
 
     public User readUser(int _id){
-        User user = new User();
+        User user = new User("null", "null", "null");
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID_USER + " = " + _id, null);
         if(cursor.moveToFirst()){
             user.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));

@@ -29,7 +29,7 @@ public class UserManager {
     }
 
     public void open(){
-        db = MySQLite.getWritableInstance();
+        db = myDb.getWritableDatabase();
     }
 
     public void close(){

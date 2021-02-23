@@ -2,12 +2,12 @@ package database;
 
 import androidx.annotation.NonNull;
 
-public class ScoreData {
+public class Score {
     private int idScore;
     private String player;
     private int score;
 
-    public ScoreData(int _idScore, String _player, int _score){
+    public Score(int _idScore, String _player, int _score){
         this.setIdScore(_idScore);
         this.setPlayer(_player);
         this.setScore(_score);

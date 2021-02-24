@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ColorMemory">
-        <activity android:name=".difficultyFacile">
+        <activity android:name=".difficultyStart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

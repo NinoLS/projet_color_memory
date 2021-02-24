@@ -13,36 +13,11 @@ import java.util.Timer;
 
 import static java.lang.Thread.sleep;
 
-public class difficultyFacile extends AppCompatActivity {
+public class difficultyStart extends AppCompatActivity {
     //joueur
-    int manche = 1;
+    int niveau = 0;
+    int manche = 0;
     int vie = 2;
-
-    //jeu
-    Button btn_gauche;
-    Button btn_droit;
-    Button btn_bas;
-    Button btn_haut;
-    Button[] btns;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_difficulty_facile);
-
-        //boutons
-        btn_gauche = findViewById(R.id.btn_facile_gauche);
-        btn_droit = findViewById(R.id.btn_facile_droit);
-        btn_bas = findViewById(R.id.btn_facile_bas);
-        btn_haut = findViewById(R.id.btn_facile_haut);
-        btns = new Button[4];
-        btns[0] = btn_gauche;
-        btns[1] = btn_droit;
-        btns[2] = btn_bas;
-        btns[3] = btn_haut;
-
-
-    }
 
     /*niveaux
      * 0 - facile
@@ -51,29 +26,62 @@ public class difficultyFacile extends AppCompatActivity {
      * 3 - chrono ?
      */
 
-    public void startNiveauFacile(View view) {
-        manche = 0;
-        startManche(view,0,manche);
+    //jeu
+    Button[] btns;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_difficulty_facile);
+    }
+
+
+    public void startNiveau(View view) {
+        if(niveau == 0) //facile
+        {
+            btns = new Button[4];
+            btns[0] = findViewById(R.id.btn_facile_gauche);
+            btns[1] = findViewById(R.id.btn_facile_droit);
+            btns[2] = findViewById(R.id.btn_facile_bas);
+            btns[3] = findViewById(R.id.btn_facile_haut);
+        }
+        if(niveau == 1) //difficile
+        {
+
+        }
+        if(niveau == 2) //expert
+        {
+
+        }
+        if(niveau == 3) //chrono ?
+        {
+
+        }
+
+        startManche(view,niveau,manche);
     }
 
     public void startManche(View view,int niveau, int manche)
     {
         if(manche < 3)
         {
-            allumeBouton(view,niveau,manche,0, 0+manche);
+            allumeBouton(view,niveau,manche,0);
+            this.manche++; //validation de la manche <=> à voir ou placer !
         }
     }
 
     @SuppressLint("ResourceAsColor")
-    public void allumeBouton(View view,int niveau,int manche,int button_count,final int BUTTON_COUNT_MAX)
+    public void allumeBouton(View view,int niveau,int manche,int button_count)
     {
-        if(button_count <= BUTTON_COUNT_MAX)
+        if(button_count<=1+manche)
         {
+            //tirage au sort
             byte random_index;
             random_index = (byte) Math.floor(Math.random() * (4 + niveau)); //de 1 à 4
             btns[random_index].setBackgroundColor(Color.RED);
             btns[random_index].setText(String.valueOf(button_count+1));
+
+            //allumer button
             new CountDownTimer(1700, 1500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -83,7 +91,7 @@ public class difficultyFacile extends AppCompatActivity {
                 public void onFinish() {
                     btns[random_index].setBackgroundColor(R.color.purple_700);
                     btns[random_index].setText("");
-                    allumeBouton(view, niveau, manche, button_count + 1,BUTTON_COUNT_MAX);
+                    allumeBouton(view, niveau, manche,button_count+1);
 
                 }
             }.start();

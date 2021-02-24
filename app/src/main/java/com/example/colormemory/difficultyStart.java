@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -29,6 +30,7 @@ public class difficultyStart extends AppCompatActivity {
     //jeu
     Button[] btns;
     Byte[] random_sequence;
+    Byte[] pressed_sequence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,8 @@ public class difficultyStart extends AppCompatActivity {
                 btns[1] = findViewById(R.id.btn_facile_droit);
                 btns[2] = findViewById(R.id.btn_facile_bas);
                 btns[3] = findViewById(R.id.btn_facile_haut);
-                random_sequence = new Byte[6]; //5 buttons max (3,4,5) <=> 3 manches
+                random_sequence = new Byte[5]; //5 buttons max (3,4,5) <=> 3 manches
+                setEnableButtons(btns,true);
             }
             if(niveau == 1) //difficile
             {
@@ -72,8 +75,9 @@ public class difficultyStart extends AppCompatActivity {
     {
         if(manche < 3)
         {
-            allumeBouton(view,niveau,manche,0);
-            this.manche++; //validation de la manche <=> à voir ou placer !
+            allumeBouton(view,niveau,manche,0); //lance la sequence (avec le récursive)
+            setEnableButtons(btns,true);
+            attendreSequence();
         }
     }
 
@@ -107,5 +111,118 @@ public class difficultyStart extends AppCompatActivity {
                 }
             }.start();
         }
+    }
+
+
+
+    public boolean attendreSequence()
+    {
+        pressed_sequence = new Byte[3+manche];
+
+        for(byte b=0;b<btns.length;b++)
+        {
+            final byte finalB = b;
+            btns[b].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(difficultyStart.this, "B"+finalB, Toast.LENGTH_SHORT).show();
+                    pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
+                    if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
+                    {
+                        setEnableButtons(btns,false);
+                        if(compareTwoTab(pressed_sequence,random_sequence))
+                        {
+                            manche++;
+                            Toast.makeText(difficultyStart.this, "BON!!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+            });
+        }
+        /*
+        btns[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(difficultyStart.this, "GAUCHE", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btns[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 1;
+                if(pressed_sequence[pressed_sequence.length-1] != null)
+                    setEnableButtons(btns,false);
+                Toast.makeText(difficultyStart.this, "DROIT", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btns[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 2;
+                if(pressed_sequence[pressed_sequence.length-1] != null)
+                    setEnableButtons(btns,false);
+                Toast.makeText(difficultyStart.this, "BAS", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btns[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 3;
+                if(pressed_sequence[pressed_sequence.length-1] != null)
+                    setEnableButtons(btns,false);
+                Toast.makeText(difficultyStart.this, "HAUT", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        /*
+        if(pressed_sequence.equals(random_sequence))
+        {
+            Toast.makeText(this, "YESSS", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else
+        {
+            Toast.makeText(this, "nooo", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
+        return false;
+    }
+
+
+
+
+
+    //FONCTIONS AIDE
+
+    public int findFirstFreeIndex(Object[] tab)
+    {
+        int i=0;
+        while(tab[i] != null)
+            i++;
+        return i;
+    }
+
+    public void setEnableButtons(Button[] btns,boolean bool)
+    {
+        for(int i=0;i<btns.length;i++)
+        {
+            btns[i].setEnabled(bool);
+        }
+    }
+
+    public boolean compareTwoTab(Object[] t1, Object[] t2)
+    {
+        int size;
+        if(t1.length>t2.length)
+            size=t2.length;
+        else size=t1.length;
+
+        for(int i=0;i<size;i++)
+        {
+            if(t1[i] != t2[i])
+                return false;
+        }
+        return true; //si on arrive ici : tout correspond
     }
 }

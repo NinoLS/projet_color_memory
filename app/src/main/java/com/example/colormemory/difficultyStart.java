@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Timer;
-
 import static java.lang.Thread.sleep;
 
 public class difficultyStart extends AppCompatActivity {
@@ -20,17 +18,17 @@ public class difficultyStart extends AppCompatActivity {
     int manche = 0;
     int vie = 2;
 
+    //jeu
+    Button[] btns;
+    Byte[] random_sequence;
+    Byte[] pressed_sequence;
+
     /*niveaux
      * 0 - facile
      * 1 - difficile
      * 2 - expert
      * 3 - chrono ?
      */
-
-    //jeu
-    Button[] btns;
-    Byte[] random_sequence;
-    Byte[] pressed_sequence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,8 @@ public class difficultyStart extends AppCompatActivity {
     }
 
 
-    public void startNiveau(View view) {
+    public void startNiveau(View view)
+    {
         if(manche==0) //si aucune manche passée => on "crée" le niveau
         {
             if(niveau == 0) //facile
@@ -70,19 +69,17 @@ public class difficultyStart extends AppCompatActivity {
         }
         startManche(view,niveau,manche);
     }
-
     public void startManche(View view,int niveau, int manche)
     {
         if(manche < 3)
         {
-            allumeBouton(view,niveau,manche,0); //lance la sequence (avec le récursive)
+            switchOnBouton(view,niveau,manche,0); //lance la sequence (avec le récursive)
             setEnableButtons(btns,true);
-            attendreSequence();
+            listenSequence();
         }
     }
-
     @SuppressLint("ResourceAsColor")
-    public void allumeBouton(View view,int niveau,int manche,int button_count)
+    public void switchOnBouton(View view, int niveau, int manche, int button_count)
     {
         if(button_count < 3+manche) //manche 1 <=> 3 buttons
         {
@@ -106,26 +103,21 @@ public class difficultyStart extends AppCompatActivity {
                 public void onFinish() {
                     btns[random_sequence[button_count]].setBackgroundColor(R.color.purple_700);
                     btns[random_sequence[button_count]].setText("");
-                    allumeBouton(view, niveau, manche,button_count+1);
+                    switchOnBouton(view, niveau, manche,button_count+1);
 
                 }
             }.start();
         }
     }
-
-
-
-    public boolean attendreSequence()
+    public void listenSequence()
     {
         pressed_sequence = new Byte[3+manche];
-
         for(byte b=0;b<btns.length;b++)
         {
             final byte finalB = b;
             btns[b].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(difficultyStart.this, "B"+finalB, Toast.LENGTH_SHORT).show();
                     pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
                     if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
                     {
@@ -135,66 +127,15 @@ public class difficultyStart extends AppCompatActivity {
                             manche++;
                             Toast.makeText(difficultyStart.this, "BON!!!", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 }
             });
         }
-        /*
-        btns[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(difficultyStart.this, "GAUCHE", Toast.LENGTH_SHORT).show();
-            }
-        });
-        btns[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 1;
-                if(pressed_sequence[pressed_sequence.length-1] != null)
-                    setEnableButtons(btns,false);
-                Toast.makeText(difficultyStart.this, "DROIT", Toast.LENGTH_SHORT).show();
-            }
-        });
-        btns[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 2;
-                if(pressed_sequence[pressed_sequence.length-1] != null)
-                    setEnableButtons(btns,false);
-                Toast.makeText(difficultyStart.this, "BAS", Toast.LENGTH_SHORT).show();
-            }
-        });
-        btns[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pressed_sequence[findFirstFreeIndex(pressed_sequence)] = 3;
-                if(pressed_sequence[pressed_sequence.length-1] != null)
-                    setEnableButtons(btns,false);
-                Toast.makeText(difficultyStart.this, "HAUT", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-        /*
-        if(pressed_sequence.equals(random_sequence))
-        {
-            Toast.makeText(this, "YESSS", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        else
-        {
-            Toast.makeText(this, "nooo", Toast.LENGTH_SHORT).show();
-            return false;
-        }*/
-        return false;
     }
 
 
 
-
-
     //FONCTIONS AIDE
-
     public int findFirstFreeIndex(Object[] tab)
     {
         int i=0;
@@ -202,15 +143,6 @@ public class difficultyStart extends AppCompatActivity {
             i++;
         return i;
     }
-
-    public void setEnableButtons(Button[] btns,boolean bool)
-    {
-        for(int i=0;i<btns.length;i++)
-        {
-            btns[i].setEnabled(bool);
-        }
-    }
-
     public boolean compareTwoTab(Object[] t1, Object[] t2)
     {
         int size;
@@ -224,5 +156,12 @@ public class difficultyStart extends AppCompatActivity {
                 return false;
         }
         return true; //si on arrive ici : tout correspond
+    }
+    public void setEnableButtons(Button[] btns,boolean bool)
+    {
+        for(int i=0;i<btns.length;i++)
+        {
+            btns[i].setEnabled(bool);
+        }
     }
 }

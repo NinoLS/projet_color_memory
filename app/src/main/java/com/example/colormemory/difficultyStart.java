@@ -23,22 +23,29 @@ public class difficultyStart extends AppCompatActivity {
     Byte[] random_sequence;
     Byte[] pressed_sequence;
 
-    /*niveaux
-     * 0 - facile
-     * 1 - difficile
-     * 2 - expert
-     * 3 - chrono ?
-     */
+    //niveaux
+    Button[] niveaux;
+
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_facile);
+
+        //jeu
         manche = 0;
         niveau = 0;
         vie = 2;
 
+        //niveaux
+        niveaux = new Button[4];
+        niveaux[0] = findViewById(R.id.btn_facile);
+        niveaux[1] = findViewById(R.id.btn_difficile);
+        niveaux[2] = findViewById(R.id.btn_expert);
+        niveaux[3] = findViewById(R.id.btn_chrono);
+
+        //boutons jeu
         btns = new Button[4];
         btns[0] = findViewById(R.id.btn_facile_gauche);
         btns[1] = findViewById(R.id.btn_facile_droit);
@@ -81,11 +88,15 @@ public class difficultyStart extends AppCompatActivity {
     {
         if(manche < 3)
         {
-            setEnableButtons(btns,true); //activer les boutons
             switchOnBouton(view,niveau,manche,0); //lance la sequence (récursivité)
             listenSequence(view);
         }
-        //else [niveau suivant]
+        else
+        {
+            niveau++;
+            manche = 0;
+            //niveaux[niveau].setEnabled(true);
+        }
     }
     @SuppressLint("ResourceAsColor")
     public void switchOnBouton(View view, int niveau, int manche, int button_count)
@@ -99,10 +110,21 @@ public class difficultyStart extends AppCompatActivity {
                 random_sequence[button_count] = random_index;
             }
 
-            btns[random_sequence[button_count]].setBackgroundColor(Color.BLACK);
-            btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
+            //allumer bouton
+            new CountDownTimer(200, 200) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
 
-            //allumer button
+                @Override
+                public void onFinish() {
+                    btns[random_sequence[button_count]].setBackgroundColor(Color.BLACK);
+                    btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
+                }
+            }.start();
+
+
+            //eteindre button
             new CountDownTimer(1500, 1500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -117,6 +139,8 @@ public class difficultyStart extends AppCompatActivity {
                 }
             }.start();
         }
+        else
+            setEnableButtons(btns,true); //activer les boutons
     }
     public void listenSequence(View view)
     {

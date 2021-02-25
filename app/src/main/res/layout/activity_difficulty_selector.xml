@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
+                android:onClick="startNiveauFacile"
                 android:text="@string/facile" />
 
             <Button
@@ -40,20 +41,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
+                android:enabled="false"
                 android:text="@string/difficile" />
 
             <Button
                 android:id="@+id/btn_expert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/expert"
-                android:layout_margin="3dp" />
+                android:layout_margin="3dp"
+                android:enabled="false"
+                android:text="@string/expert" />
 
             <Button
                 android:id="@+id/btn_chrono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
+                android:enabled="false"
                 android:text="@string/chrono" />
 
         </TableRow>

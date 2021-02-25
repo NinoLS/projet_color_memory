@@ -10,13 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ColorMemory">
         <activity android:name=".difficultyStart">
+
+        </activity>
+        <activity android:name=".difficultySelector">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".difficultySelector" />
         <activity android:name=".MainActivity">
 
         </activity>

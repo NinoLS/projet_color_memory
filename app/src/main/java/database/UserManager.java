@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.Date;
 
@@ -14,12 +15,12 @@ public class UserManager {
     public static final String KEY_PASSWORD_USER = "password_user";
     public static final String KEY_BIRTH_USER = "birth_user";
 
-    public static final String CREATE_TABLE_USER = "CREATE TABLE" + TABLE_NAME +
-            KEY_ID_USER + " INT NOT NULL,\n" +
-            KEY_NOM_USER + " VARCHAR(45) NOT NULL,\n" +
-            KEY_PASSWORD_USER + " VARCHAR(45) NOT NULL,\n" +
-            KEY_BIRTH_USER +  " VARCHAR(45) NOT NULL,\n" +
-            "PRIMARY KEY ('" + KEY_ID_USER +"'))\n";
+    public static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (\n" +
+            " '" + KEY_ID_USER + "' INT NOT NULL AUTO_INCREMENT,\n" +
+            " '" + KEY_NOM_USER + "' VARCHAR(45) NOT NULL,\n" +
+            " '" + KEY_PASSWORD_USER + "' VARCHAR(45) NOT NULL,\n" +
+            " '" + KEY_BIRTH_USER + "' VARCHAR(45) NOT NULL,\n" +
+            "  PRIMARY KEY (`"+ KEY_ID_USER + "`))\n";
 
     private MySQLite myDb;
     private SQLiteDatabase db;
@@ -37,7 +38,9 @@ public class UserManager {
     }
 
     public long createUser(User _user){
+
         ContentValues values = new ContentValues();
+
         values.put(KEY_NOM_USER, _user.getName());
         values.put(KEY_PASSWORD_USER, _user.getPassword());
         values.put(KEY_BIRTH_USER, _user.getBirth());
@@ -60,9 +63,14 @@ public class UserManager {
 
     public int upgradeUser(User _user){
         ContentValues values = new ContentValues();
-        values.put(KEY_NOM_USER, _user.getName());
-        values.put(KEY_PASSWORD_USER, _user.getPassword());
-        values.put(KEY_BIRTH_USER, _user.getBirth());
+
+        String name = "'" + _user.getName() + "'";
+        String password = "'" + _user.getPassword() + "'";
+        String birth = "'" + _user.getBirth() + "'";
+
+        values.put(KEY_NOM_USER, name);
+        values.put(KEY_PASSWORD_USER, password);
+        values.put(KEY_BIRTH_USER, birth);
 
         String whereClause = KEY_ID_USER + " = ?";
         String[] whereClauseArgs = {_user.getName() + ""};

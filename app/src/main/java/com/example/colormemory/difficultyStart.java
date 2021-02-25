@@ -23,10 +23,6 @@ public class difficultyStart extends AppCompatActivity {
     Byte[] random_sequence;
     Byte[] pressed_sequence;
 
-    //niveaux
-    Button[] niveaux;
-
-
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +34,7 @@ public class difficultyStart extends AppCompatActivity {
         niveau = 0;
         vie = 2;
 
-        //niveaux
-        niveaux = new Button[4];
-        niveaux[0] = findViewById(R.id.btn_facile);
-        niveaux[1] = findViewById(R.id.btn_difficile);
-        niveaux[2] = findViewById(R.id.btn_expert);
-        niveaux[3] = findViewById(R.id.btn_chrono);
+
 
         //boutons jeu
         btns = new Button[4];
@@ -68,6 +59,7 @@ public class difficultyStart extends AppCompatActivity {
             if(niveau == 0) //facile : 3,4,5 boutons (3manches)
             {
                 random_sequence = new Byte[5];
+                view.setEnabled(false);
             }
             if(niveau == 1) //difficile
             {
@@ -93,8 +85,9 @@ public class difficultyStart extends AppCompatActivity {
         }
         else
         {
-            niveau++;
             manche = 0;
+            setResult(RESULT_OK);
+            finish(); //on sort
             //niveaux[niveau].setEnabled(true);
         }
     }
@@ -122,7 +115,6 @@ public class difficultyStart extends AppCompatActivity {
                     btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
                 }
             }.start();
-
 
             //eteindre button
             new CountDownTimer(1500, 1500) {
@@ -232,6 +224,12 @@ public class difficultyStart extends AppCompatActivity {
                     manche++;
                     startNiveau(view);
                 }
+                else //si perdu
+                {
+                    view.setEnabled(true); //on peut reessayer
+                    manche = 0; //manche 0
+                }
+
             }
         }.start();
     }

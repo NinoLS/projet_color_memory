@@ -37,6 +37,14 @@ public class difficultyStart extends AppCompatActivity {
         manche = 0;
         niveau = 0;
         vie = 2;
+
+        btns = new Button[4];
+        btns[0] = findViewById(R.id.btn_facile_gauche);
+        btns[1] = findViewById(R.id.btn_facile_droit);
+        btns[2] = findViewById(R.id.btn_facile_bas);
+        btns[3] = findViewById(R.id.btn_facile_haut);
+        //reste...
+        setEnableButtons(btns,false); //activer les boutons
     }
 
 
@@ -44,15 +52,9 @@ public class difficultyStart extends AppCompatActivity {
     {
         if(manche==0) //si aucune manche passée => on "crée" le niveau
         {
-            if(niveau == 0) //facile
+            if(niveau == 0) //facile : 3,4,5 boutons (3manches)
             {
-                btns = new Button[4];
-                btns[0] = findViewById(R.id.btn_facile_gauche);
-                btns[1] = findViewById(R.id.btn_facile_droit);
-                btns[2] = findViewById(R.id.btn_facile_bas);
-                btns[3] = findViewById(R.id.btn_facile_haut);
-                random_sequence = new Byte[5]; //5 buttons max (3,4,5) <=> 3 manches
-                setEnableButtons(btns,true);
+                random_sequence = new Byte[5];
             }
             if(niveau == 1) //difficile
             {
@@ -67,16 +69,17 @@ public class difficultyStart extends AppCompatActivity {
 
             }
         }
+        setEnableButtons(btns,true); //activer les boutons
         startManche(view,niveau,manche);
     }
     public void startManche(View view,int niveau, int manche)
     {
         if(manche < 3)
         {
-            switchOnBouton(view,niveau,manche,0); //lance la sequence (avec le récursive)
-            setEnableButtons(btns,true);
+            switchOnBouton(view,niveau,manche,0); //lance la sequence (récursivité)
             listenSequence();
         }
+        //else [niveau suivant]
     }
     @SuppressLint("ResourceAsColor")
     public void switchOnBouton(View view, int niveau, int manche, int button_count)
@@ -111,7 +114,7 @@ public class difficultyStart extends AppCompatActivity {
     }
     public void listenSequence()
     {
-        pressed_sequence = new Byte[3+manche];
+        pressed_sequence = new Byte[3+manche]; //"vider" la sequence
         for(byte b=0;b<btns.length;b++)
         {
             final byte finalB = b;

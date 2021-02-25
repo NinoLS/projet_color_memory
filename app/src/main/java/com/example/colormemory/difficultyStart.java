@@ -75,15 +75,15 @@ public class difficultyStart extends AppCompatActivity {
 
             }
         }
-        setEnableButtons(btns,true); //activer les boutons
         startManche(view,niveau,manche);
     }
     public void startManche(View view,int niveau, int manche)
     {
         if(manche < 3)
         {
+            setEnableButtons(btns,true); //activer les boutons
             switchOnBouton(view,niveau,manche,0); //lance la sequence (récursivité)
-            listenSequence();
+            listenSequence(view);
         }
         //else [niveau suivant]
     }
@@ -118,7 +118,7 @@ public class difficultyStart extends AppCompatActivity {
             }.start();
         }
     }
-    public void listenSequence()
+    public void listenSequence(View view)
     {
         pressed_sequence = new Byte[3+manche]; //"vider" la sequence
         for(byte b=0;b<btns.length;b++)
@@ -131,13 +131,15 @@ public class difficultyStart extends AppCompatActivity {
                     if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
                     {
                         setEnableButtons(btns,false);
-                        if(compareTwoTab(pressed_sequence,random_sequence)) //si sequence bonne
-                        {
-                            manche++;
+                        finishManche(view,compareTwoTab(pressed_sequence,random_sequence));
+                        //manche gagné si les 2 séquences sont identiques
+                        /* //CORRESPOND A :
+                        if(compareTwoTab(pressed_sequence,random_sequence))
+
                             finishManche(true);
-                        }
                         else
                             finishManche(false);
+                        */
                     }
                 }
             });
@@ -178,9 +180,9 @@ public class difficultyStart extends AppCompatActivity {
 
 
     //FONCTIONS STYLE
-    public void finishManche(boolean success)
+    public void finishManche(View view,boolean success)
     {
-        new CountDownTimer(500, 500) {
+        new CountDownTimer(300, 300) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -192,7 +194,7 @@ public class difficultyStart extends AppCompatActivity {
                     btns[b].setBackgroundColor(success?Color.GREEN:Color.RED);
             }
         }.start();
-        new CountDownTimer(1500, 1500) {
+        new CountDownTimer(1300, 1300) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -202,6 +204,10 @@ public class difficultyStart extends AppCompatActivity {
             public void onFinish() {
                 for(int b=0;b<btns.length;b++)
                     btns[b].setBackgroundColor(Color.BLUE);
+                if (success) {
+                    manche++;
+                    startNiveau(view);
+                }
             }
         }.start();
     }

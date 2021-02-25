@@ -30,6 +30,7 @@ public class difficultyStart extends AppCompatActivity {
      * 3 - chrono ?
      */
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,11 @@ public class difficultyStart extends AppCompatActivity {
         btns[2] = findViewById(R.id.btn_facile_bas);
         btns[3] = findViewById(R.id.btn_facile_haut);
         //reste...
+
+        for(int b=0;b<btns.length;b++)
+        {
+            btns[b].setBackgroundColor(Color.BLUE);
+        }
         setEnableButtons(btns,false); //activer les boutons
     }
 
@@ -93,18 +99,18 @@ public class difficultyStart extends AppCompatActivity {
                 random_sequence[button_count] = random_index;
             }
 
-            btns[random_sequence[button_count]].setBackgroundColor(Color.RED);
+            btns[random_sequence[button_count]].setBackgroundColor(Color.BLACK);
             btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
 
             //allumer button
-            new CountDownTimer(1700, 1500) {
+            new CountDownTimer(1500, 1500) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                 }
 
                 @Override
                 public void onFinish() {
-                    btns[random_sequence[button_count]].setBackgroundColor(R.color.purple_700);
+                    btns[random_sequence[button_count]].setBackgroundColor(Color.BLUE);
                     btns[random_sequence[button_count]].setText("");
                     switchOnBouton(view, niveau, manche,button_count+1);
 
@@ -125,11 +131,13 @@ public class difficultyStart extends AppCompatActivity {
                     if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
                     {
                         setEnableButtons(btns,false);
-                        if(compareTwoTab(pressed_sequence,random_sequence))
+                        if(compareTwoTab(pressed_sequence,random_sequence)) //si sequence bonne
                         {
                             manche++;
-                            Toast.makeText(difficultyStart.this, "BON!!!", Toast.LENGTH_SHORT).show();
+                            finishManche(true);
                         }
+                        else
+                            finishManche(false);
                     }
                 }
             });
@@ -166,5 +174,35 @@ public class difficultyStart extends AppCompatActivity {
         {
             btns[i].setEnabled(bool);
         }
+    }
+
+
+    //FONCTIONS STYLE
+    public void finishManche(boolean success)
+    {
+        new CountDownTimer(500, 500) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onFinish() {
+                for(int b=0;b<btns.length;b++)
+                    btns[b].setBackgroundColor(success?Color.GREEN:Color.RED);
+            }
+        }.start();
+        new CountDownTimer(1500, 1500) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onFinish() {
+                for(int b=0;b<btns.length;b++)
+                    btns[b].setBackgroundColor(Color.BLUE);
+            }
+        }.start();
     }
 }

@@ -64,14 +64,7 @@ public class difficultyStart extends AppCompatActivity {
         if(n_MANCHE == n_MANCHE_MIN) //si aucune manche passée => on "crée" le niveau
         {
             view.setEnabled(false);
-            if(n_NIVEAU == 3) //chrono ?
-            {
-                random_sequence = new Byte[n_MANCHE_MAX];
-            }
-            else
-            {
-                random_sequence = new Byte[n_MANCHE_MAX];
-            }
+            random_sequence = new Byte[n_MANCHE_MAX];
         }
         startManche(view);
     }
@@ -156,6 +149,20 @@ public class difficultyStart extends AppCompatActivity {
                     }
                 }
             });
+            //niveau 3 <=> TIMER
+            if(n_NIVEAU == 3)
+                new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
+                {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        setEnableButtons(btns,false);
+                    }
+                };
         }
     }
     public void finishManche(View view,boolean success)

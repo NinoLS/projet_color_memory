@@ -32,16 +32,19 @@ public class difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         //set_intent_1.putExtras(b_valider_bundle);
 
-        startActivityForResult(intent,RESULT_OK);
+        startActivityForResult(intent,0);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if(resultCode == Activity.RESULT_OK)
+        if(requestCode == 0)
         {
-            niveau++;
-            niveaux[niveau].setEnabled(true);
+            if(resultCode == Activity.RESULT_OK)
+            {
+                niveau++;
+                niveaux[niveau].setEnabled(true);
+            }
         }
     }
 }

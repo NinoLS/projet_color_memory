@@ -3,6 +3,7 @@ package com.example.colormemory;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -86,7 +87,7 @@ public class difficultyStart extends AppCompatActivity {
         else
         {
             manche = 0;
-            setResult(RESULT_OK);
+            setResult(Activity.RESULT_OK);
             finish(); //on sort
             //niveaux[niveau].setEnabled(true);
         }

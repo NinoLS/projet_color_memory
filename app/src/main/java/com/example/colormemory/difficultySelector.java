@@ -31,7 +31,6 @@ public class difficultySelector extends AppCompatActivity {
     public void startNiveauFacile(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("NIVEAU",0);
-        intent.putExtra("POIDS",1);
         intent.putExtra("MANCHE_MIN",1);
         intent.putExtra("MANCHE_MAX",10);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -42,7 +41,6 @@ public class difficultySelector extends AppCompatActivity {
     public void startNiveauDifficile(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("NIVEAU",0);
-        intent.putExtra("POIDS",1.5);
         intent.putExtra("MANCHE_MIN",3);
         intent.putExtra("MANCHE_MAX",15);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -53,7 +51,6 @@ public class difficultySelector extends AppCompatActivity {
     public void startNiveauExpert(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("NIVEAU",2);
-        intent.putExtra("POIDS",3);
         intent.putExtra("MANCHE_MIN",5);
         intent.putExtra("MANCHE_MAX",20);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -64,7 +61,6 @@ public class difficultySelector extends AppCompatActivity {
     public void startNiveauChrono(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("NIVEAU",3);
-        intent.putExtra("POIDS",2);
         intent.putExtra("MANCHE_MIN",1);
         intent.putExtra("MANCHE_MAX",500); //500 maximum ?? (ou 0 - infini)
         intent.putExtra("TEMPS_REPONSE",2); //2 secondes par boutons

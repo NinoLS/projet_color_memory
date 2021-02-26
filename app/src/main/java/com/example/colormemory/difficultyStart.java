@@ -16,7 +16,6 @@ import static java.lang.Thread.sleep;
 public class difficultyStart extends AppCompatActivity {
     //joueur
     int n_NIVEAU;
-    int n_POIDS;
     int n_MANCHE_MIN;
     int n_MANCHE;
     int n_MANCHE_MAX;
@@ -159,7 +158,52 @@ public class difficultyStart extends AppCompatActivity {
             });
         }
     }
+    public void finishManche(View view,boolean success)
+    {
+        new CountDownTimer(300, 300) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
 
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onFinish() {
+                for(int b=0;b<btns.length;b++)
+                    btns[b].setBackgroundColor(success?Color.GREEN:Color.RED);
+            }
+        }.start();
+        new CountDownTimer(1200, 1200) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onFinish() {
+                for(int b=0;b<btns.length;b++)
+                    btns[b].setBackgroundColor(Color.BLUE);
+                if (success) {
+                    n_MANCHE++;
+                    startManche(view);
+                }
+                else //si perdu
+                {
+                    if(n_VIES>0)
+                    {
+                        view.setEnabled(true); //on peut reessayer
+                        n_MANCHE = 0; //manche 0
+                        n_VIES--;
+                    }
+                    else
+                    {
+                        setResult(Activity.RESULT_CANCELED);
+                        finish(); //on sort
+                    }
+                }
+
+            }
+        }.start();
+    }
 
 
     //FONCTIONS AIDE
@@ -192,43 +236,4 @@ public class difficultyStart extends AppCompatActivity {
         }
     }
 
-
-    //FONCTIONS STYLE
-    public void finishManche(View view,boolean success)
-    {
-        new CountDownTimer(300, 300) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onFinish() {
-                for(int b=0;b<btns.length;b++)
-                    btns[b].setBackgroundColor(success?Color.GREEN:Color.RED);
-            }
-        }.start();
-        new CountDownTimer(1300, 1300) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onFinish() {
-                for(int b=0;b<btns.length;b++)
-                    btns[b].setBackgroundColor(Color.BLUE);
-                if (success) {
-                    n_MANCHE++;
-                    startNiveau(view);
-                }
-                else //si perdu
-                {
-                    view.setEnabled(true); //on peut reessayer
-                    n_MANCHE = 0; //manche 0
-                }
-
-            }
-        }.start();
-    }
 }

@@ -41,7 +41,7 @@ public class difficultyStart extends AppCompatActivity {
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
         n_VIES = intent.getIntExtra("VIES",2);
         if(n_NIVEAU == 3)
-            n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",0);
+            n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",2);
 
         //boutons jeu
         btns = new Button[4];
@@ -73,7 +73,9 @@ public class difficultyStart extends AppCompatActivity {
         if(n_MANCHE <= n_MANCHE_MAX)
         {
             switchOnBouton(view,0); //lance la sequence (récursivité)
-            listenSequence(view);
+            if(n_NIVEAU < 3)
+                listenSequence(view);
+            else chronoSequence(view);
         }
         else
         {
@@ -149,24 +151,30 @@ public class difficultyStart extends AppCompatActivity {
                     }
                 }
             });
-            //niveau 3 <=> TIMER
-            if(n_NIVEAU == 3)
-                new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
-                {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        setEnableButtons(btns,false);
-                    }
-                };
         }
     }
-    public void finishManche(View view,boolean success)
+
+    public void chronoSequence(View view)
     {
+        //niveau 3 <=> TIMER
+        new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
+        {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                if(findFirstFreeIndex(pressed_sequence) == pressed_sequence.length)
+                {
+                    if(compareTwoTab(pressed_sequence,random_sequence));
+                }
+            }
+        };
+    }
+    public void finishManche(View view,boolean success)
+        {
         new CountDownTimer(300, 300) {
             @Override
             public void onTick(long millisUntilFinished) {

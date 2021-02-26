@@ -36,12 +36,12 @@ public class difficultyStart extends AppCompatActivity {
         //parametre niveau
         Intent intent = getIntent();
         n_NIVEAU = intent.getIntExtra("NIVEAU",0);
-        n_POIDS = intent.getIntExtra("POIDS",1);
         n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
         n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
-        n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",0);
         n_VIES = intent.getIntExtra("VIES",2);
+        if(n_NIVEAU == 3)
+            n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",0);
 
         //boutons jeu
         btns = new Button[4];

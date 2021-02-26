@@ -10,15 +10,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import static java.lang.Thread.sleep;
 
 public class difficultyStart extends AppCompatActivity {
     //joueur
-    int niveau = 0;
-    int manche = 0;
-    int vie = 2;
+    int n_NIVEAU;
+    int n_POIDS;
+    int n_MANCHE_MIN;
+    int n_MANCHE;
+    int n_MANCHE_MAX;
+    int n_TEMPS_REPONSE;
+    int n_VIES;
 
     //jeu
     Button[] btns;
@@ -31,13 +34,14 @@ public class difficultyStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_facile);
 
-        //intent
+        //parametre niveau
         Intent intent = getIntent();
-        niveau = intent.getIntExtra("niveau",0);
-
-        //jeu
-        manche = 0;
-        vie = 2;
+        n_NIVEAU = intent.getIntExtra("NIVEAU",0);
+        n_POIDS = intent.getIntExtra("POIDS",1);
+        n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
+        n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
+        n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",0);
+        n_VIES = intent.getIntExtra("VIES",2);
 
         //boutons jeu
         btns = new Button[4];
@@ -57,27 +61,23 @@ public class difficultyStart extends AppCompatActivity {
 
     public void startNiveau(View view)
     {
-        if(manche==0) //si aucune manche passée => on "crée" le niveau
+        if(n_MANCHE ==0) //si aucune manche passée => on "crée" le niveau
         {
-            if(niveau == 0) //facile : 3,4,5 boutons (3manches)
-            {
+            view.setEnabled(false);
+            if(n_NIVEAU == 0) //facile : 3,4,5 boutons (3manches)
                 random_sequence = new Byte[5];
-                view.setEnabled(false);
-            }
-            if(niveau == 1) //difficile
-            {
 
-            }
-            if(niveau == 2) //expert
-            {
+            if(n_NIVEAU == 1) //difficile
+                random_sequence = new Byte[5];
 
-            }
-            if(niveau == 3) //chrono ?
-            {
+            if(n_NIVEAU == 2) //expert
+                random_sequence = new Byte[5];
 
-            }
+            if(n_NIVEAU == 3) //chrono ?
+                random_sequence = new Byte[5];
+
         }
-        startManche(view,niveau,manche);
+        startManche(view, n_NIVEAU, n_MANCHE);
     }
     public void startManche(View view,int niveau, int manche)
     {
@@ -139,7 +139,7 @@ public class difficultyStart extends AppCompatActivity {
     }
     public void listenSequence(View view)
     {
-        pressed_sequence = new Byte[3+manche]; //"vider" la sequence
+        pressed_sequence = new Byte[3+ n_MANCHE]; //"vider" la sequence
         for(byte b=0;b<btns.length;b++)
         {
             final byte finalB = b;
@@ -224,13 +224,13 @@ public class difficultyStart extends AppCompatActivity {
                 for(int b=0;b<btns.length;b++)
                     btns[b].setBackgroundColor(Color.BLUE);
                 if (success) {
-                    manche++;
+                    n_MANCHE++;
                     startNiveau(view);
                 }
                 else //si perdu
                 {
                     view.setEnabled(true); //on peut reessayer
-                    manche = 0; //manche 0
+                    n_MANCHE = 0; //manche 0
                 }
 
             }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,12 +31,13 @@ public class difficultyStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_facile);
 
+        //intent
+        Intent intent = getIntent();
+        niveau = intent.getIntExtra("niveau",0);
+
         //jeu
         manche = 0;
-        niveau = 0;
         vie = 2;
-
-
 
         //boutons jeu
         btns = new Button[4];

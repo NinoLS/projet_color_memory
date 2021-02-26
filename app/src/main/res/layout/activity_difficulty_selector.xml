@@ -8,25 +8,26 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-38dp"
+        tools:layout_editor_absoluteY="119dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <Button
                 android:id="@+id/btn_facile"
@@ -42,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:enabled="false"
+                android:onClick="startNiveauDifficile"
                 android:text="@string/difficile" />
 
             <Button
@@ -50,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:enabled="false"
+                android:onClick="startNiveauExpert"
                 android:text="@string/expert" />
 
             <Button
@@ -58,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:enabled="false"
+                android:onClick="startNiveauChrono"
                 android:text="@string/chrono" />
 
         </TableRow>

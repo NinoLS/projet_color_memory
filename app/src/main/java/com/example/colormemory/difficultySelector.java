@@ -30,9 +30,27 @@ public class difficultySelector extends AppCompatActivity {
 
     public void startNiveauFacile(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
-        //set_intent_1.putExtras(b_valider_bundle);
+        intent.putExtra("niveau",0);
 
-        startActivityForResult(intent,0);
+        startActivityForResult(intent,0,intent.getExtras());
+    }
+    public void startNiveauDifficile(View view) {
+        Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
+        intent.putExtra("niveau",1);
+
+        startActivityForResult(intent,0,intent.getExtras());
+    }
+    public void startNiveauExpert(View view) {
+        Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
+        intent.putExtra("niveau",2);
+
+        startActivityForResult(intent,0,intent.getExtras());
+    }
+    public void startNiveauChrono(View view) {
+        Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
+        intent.putExtra("niveau",3);
+
+        startActivityForResult(intent,0,intent.getExtras());
     }
 
     @Override

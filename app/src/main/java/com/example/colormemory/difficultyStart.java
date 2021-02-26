@@ -39,6 +39,7 @@ public class difficultyStart extends AppCompatActivity {
         n_NIVEAU = intent.getIntExtra("NIVEAU",0);
         n_POIDS = intent.getIntExtra("POIDS",1);
         n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
+        n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
         n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",0);
         n_VIES = intent.getIntExtra("VIES",2);
@@ -61,48 +62,42 @@ public class difficultyStart extends AppCompatActivity {
 
     public void startNiveau(View view)
     {
-        if(n_MANCHE ==0) //si aucune manche passée => on "crée" le niveau
+        if(n_MANCHE == n_MANCHE_MIN) //si aucune manche passée => on "crée" le niveau
         {
             view.setEnabled(false);
-            if(n_NIVEAU == 0) //facile : 3,4,5 boutons (3manches)
-                random_sequence = new Byte[5];
-
-            if(n_NIVEAU == 1) //difficile
-                random_sequence = new Byte[5];
-
-            if(n_NIVEAU == 2) //expert
-                random_sequence = new Byte[5];
-
             if(n_NIVEAU == 3) //chrono ?
-                random_sequence = new Byte[5];
-
+            {
+                random_sequence = new Byte[n_MANCHE_MAX];
+            }
+            else
+            {
+                random_sequence = new Byte[n_MANCHE_MAX];
+            }
         }
-        startManche(view, n_NIVEAU, n_MANCHE);
+        startManche(view);
     }
-    public void startManche(View view,int niveau, int manche)
+    public void startManche(View view)
     {
-        if(manche < 3)
+        if(n_MANCHE <= n_MANCHE_MAX)
         {
-            switchOnBouton(view,niveau,manche,0); //lance la sequence (récursivité)
+            switchOnBouton(view,0); //lance la sequence (récursivité)
             listenSequence(view);
         }
         else
         {
-            manche = 0;
             setResult(Activity.RESULT_OK);
             finish(); //on sort
-            //niveaux[niveau].setEnabled(true);
         }
     }
     @SuppressLint("ResourceAsColor")
-    public void switchOnBouton(View view, int niveau, int manche, int button_count)
+    public void switchOnBouton(View view, int button_count)
     {
-        if(button_count < 3+manche) //manche 1 <=> 3 buttons
+        if(button_count < n_MANCHE) //ex: [facile,manche 0] => 1 bouton
         {
             //tirage au sort + stockage sequence
             if(random_sequence[button_count] == null)
             {
-                byte random_index = (byte) Math.floor(Math.random() * (4 + niveau)); //de 1 à 4
+                byte random_index = (byte) Math.floor(Math.random() * (4 + n_NIVEAU)); //de 1 à 4
                 random_sequence[button_count] = random_index;
             }
 
@@ -129,7 +124,7 @@ public class difficultyStart extends AppCompatActivity {
                 public void onFinish() {
                     btns[random_sequence[button_count]].setBackgroundColor(Color.BLUE);
                     btns[random_sequence[button_count]].setText("");
-                    switchOnBouton(view, niveau, manche,button_count+1);
+                    switchOnBouton(view,button_count+1);
 
                 }
             }.start();
@@ -139,7 +134,7 @@ public class difficultyStart extends AppCompatActivity {
     }
     public void listenSequence(View view)
     {
-        pressed_sequence = new Byte[3+ n_MANCHE]; //"vider" la sequence
+        pressed_sequence = new Byte[n_MANCHE]; //"vider" la sequence (manches d'avant)
         for(byte b=0;b<btns.length;b++)
         {
             final byte finalB = b;

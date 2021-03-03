@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import static java.lang.Thread.sleep;
 
@@ -206,8 +207,9 @@ public class difficultyStart extends AppCompatActivity {
                     if(n_VIES>0)
                     {
                         view.setEnabled(true); //on peut reessayer
-                        n_MANCHE = 0; //manche 0
+                        n_MANCHE = n_MANCHE_MIN; //retour 1ere manche
                         n_VIES--;
+                        //Toast.makeText(difficultyStart.this, "Encore "+n_VIES+" vie"+((n_VIES>1)?"s":""), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {

@@ -28,6 +28,7 @@ public class difficultyStart extends AppCompatActivity {
 
     //jeu
     Button[] btns;
+    int[] btns_ids;
     Byte[] random_sequence;
     Byte[] pressed_sequence;
     TextView tv_vies;
@@ -59,40 +60,48 @@ public class difficultyStart extends AppCompatActivity {
         tv_niveau = findViewById(R.id.tv_niveau);
         tv_niveau.setText("Niveau: " + n_NIVEAU);
 
-        //boutons jeu
-        btns = new Button[4];
-        btns[0] = findViewById(R.id.btn_facile_gauche);
-        btns[1] = findViewById(R.id.btn_facile_droit);
-        btns[2] = findViewById(R.id.btn_facile_bas);
-        btns[3] = findViewById(R.id.btn_facile_haut);
-        //reste...
+        //ordres des boutons (id)
+        btns_ids = new int[10];
+        btns_ids[0] = R.id.btn_bas;
+        btns_ids[1] = R.id.btn_haut;
+        btns_ids[2] = R.id.btn_gauche;
+        btns_ids[3] = R.id.btn_droit;
+        btns_ids[4] = R.id.btn_haut_haut;
+        btns_ids[7] = R.id.btn_bas_bas;
+        btns_ids[8] = R.id.btn_bas_gauche;
+        btns_ids[6] = R.id.btn_haut_droit;
+        btns_ids[5] = R.id.btn_haut_gauche;
+        btns_ids[9] = R.id.btn_bas_droit;
 
-        for(int b=0;b<btns.length;b++)
-        {
-            btns[b].setBackgroundColor(Color.BLUE);
-        }
-        setEnableButtons(btns,false); //activer les boutons
+        startDifficulty();
     }
 
 
-    public void startDifficulte(View view)
+
+
+    public void startDifficulty()
     {
-        if(n_NIVEAU == n_NIVEAU_MIN) //si aucun niveau passée => on "crée" la difficulté
+        new CountDownTimer(2000,2000)
         {
-            view.setEnabled(false);
-        }
-        startNiveau(view);
-    }
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-    public void startNiveau(View view)
+            }
+            @Override
+            public void onFinish() {
+                startNiveau();
+            }
+        }.start();
+    }
+    public void startNiveau()
     {
         if(n_NIVEAU <= n_NIVEAU_MAX)
         {
+            displayButtons(n_NIVEAU+3); //niveau 1 -> 4=3+1 boutons
             tv_niveau.setText("Niveau: " + n_NIVEAU); //affichage niveau
             random_sequence = new Byte[n_MANCHE_MAX]; //nouvelle sequence random
-            // //ajout d'un bouton
             n_MANCHE = n_MANCHE_MIN; //1ere manche
-            startManche(view);
+            startManche();
         }
         else
         {
@@ -100,31 +109,30 @@ public class difficultyStart extends AppCompatActivity {
             finish(); //on sort
         }
     }
-
-    public void startManche(View view)
+    public void startManche()
     {
         if(n_MANCHE <= n_MANCHE_MAX)
         {
-            switchOnBouton(view,0); //lance la sequence (récursivité)
+            switchOnBouton(0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
-                listenSequence(view);
-            else chronoSequence(view); //pour le niveau chrono
+                listenSequence();
+            else chronoSequence(); //pour le niveau chrono
         }
         else
         {
             n_NIVEAU++;
-            startNiveau(view);
+            startNiveau();
         }
     }
     @SuppressLint("ResourceAsColor")
-    public void switchOnBouton(View view, int button_count)
+    public void switchOnBouton(int button_count)
     {
         if(button_count < n_MANCHE) //ex: [facile,manche 0] => 1 bouton
         {
             //tirage au sort + stockage sequence
             if(random_sequence[button_count] == null)
             {
-                byte random_index = (byte) Math.floor(Math.random() * (4 + n_DIFF)); //de 1 à 4
+                byte random_index = (byte) Math.floor(Math.random() * (3 + n_NIVEAU));
                 random_sequence[button_count] = random_index;
             }
 
@@ -137,7 +145,7 @@ public class difficultyStart extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     btns[random_sequence[button_count]].setBackgroundColor(Color.BLACK);
-                    btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
+                    //btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
                 }
             }.start();
 
@@ -151,15 +159,17 @@ public class difficultyStart extends AppCompatActivity {
                 public void onFinish() {
                     btns[random_sequence[button_count]].setBackgroundColor(Color.BLUE);
                     btns[random_sequence[button_count]].setText("");
-                    switchOnBouton(view,button_count+1);
+                    switchOnBouton(button_count+1);
 
                 }
             }.start();
         }
         else
-            setEnableButtons(btns,true); //activer les boutons
+            setEnableButtons(true); //activer les boutons
     }
-    public void listenSequence(View view)
+
+
+    public void listenSequence()
     {
         pressed_sequence = new Byte[n_MANCHE]; //"vider" la sequence (manches d'avant)
         for(byte b=0;b<btns.length;b++)
@@ -171,8 +181,8 @@ public class difficultyStart extends AppCompatActivity {
                     pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
                     if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
                     {
-                        setEnableButtons(btns,false);
-                        finishManche(view,compareTwoTab(pressed_sequence,random_sequence));
+                        setEnableButtons(false);
+                        finishManche(compareTwoTab(pressed_sequence,random_sequence));
                         //manche gagné si les 2 séquences sont identiques
                         /* //CORRESPOND A :
                         if(compareTwoTab(pressed_sequence,random_sequence))
@@ -186,8 +196,7 @@ public class difficultyStart extends AppCompatActivity {
             });
         }
     }
-
-    public void chronoSequence(View view)
+    public void chronoSequence()
     {
         //difficulté 3 <=> TIMER
         new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
@@ -206,7 +215,7 @@ public class difficultyStart extends AppCompatActivity {
             }
         };
     }
-    public void finishManche(View view,boolean success)
+    public void finishManche(boolean success)
     {
         new CountDownTimer(300, 300) {
             @Override
@@ -232,7 +241,7 @@ public class difficultyStart extends AppCompatActivity {
                     btns[b].setBackgroundColor(Color.BLUE);
                 if (success) {
                     n_MANCHE++;
-                    startManche(view);
+                    startManche();
                 }
                 else //si perdu
                 {
@@ -242,11 +251,12 @@ public class difficultyStart extends AppCompatActivity {
                         n_MANCHE = n_MANCHE_MIN; //retour 1ere manche
                         n_VIES--;
                         tv_vies.setText("Vies: " + n_VIES);
+                        startNiveau(); //on recommence le niveau
                         //Toast.makeText(difficultyStart.this, "Encore "+n_VIES+" vie"+((n_VIES>1)?"s":""), Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        //plus de vies => retour au niveau 1
+                        //plus de vies => on sort ? OU retour au niveau 1
                         n_NIVEAU = 0;
                         setResult(Activity.RESULT_CANCELED);
                         finish(); //on sort
@@ -280,12 +290,23 @@ public class difficultyStart extends AppCompatActivity {
         }
         return true; //si on arrive ici : tout correspond
     }
-    public void setEnableButtons(Button[] btns,boolean bool)
+    public void setEnableButtons(boolean bool)
     {
         for(int i=0;i<btns.length;i++)
         {
             btns[i].setEnabled(bool);
         }
+    }
+    public void displayButtons(int number)
+    {
+        btns = new Button[number];
+        for(int b=0;b<number;b++)
+        {
+            btns[b] = findViewById(btns_ids[b]);
+            btns[b].setVisibility(View.VISIBLE);
+            btns[b].setBackgroundColor(Color.BLUE);
+        }
+        setEnableButtons(false); //activer les boutons
     }
 
 }

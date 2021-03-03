@@ -23,6 +23,16 @@
             app:layout_row="0"
             app:layout_rowWeight="1" />
 
+        <TextView
+            android:id="@+id/tv_niveau"
+            android:text="@string/niveau"
+            android:textSize="20dp"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="1" />
+
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"

@@ -32,7 +32,7 @@ public class difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("DIFF",0);
         intent.putExtra("MANCHE_MIN",1);
-        intent.putExtra("MANCHE_MAX",10);
+        intent.putExtra("MANCHE_MAX",3);
         intent.putExtra("TEMPS_REPONSE",0);
         intent.putExtra("VIES",2);
 

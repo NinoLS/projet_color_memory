@@ -17,6 +17,9 @@ import static java.lang.Thread.sleep;
 public class difficultyStart extends AppCompatActivity {
     //joueur
     int n_DIFF;
+    int n_NIVEAU;
+    int n_NIVEAU_MIN;
+    int n_NIVEAU_MAX;
     int n_MANCHE_MIN;
     int n_MANCHE;
     int n_MANCHE_MAX;
@@ -28,6 +31,7 @@ public class difficultyStart extends AppCompatActivity {
     Byte[] random_sequence;
     Byte[] pressed_sequence;
     TextView tv_vies;
+    TextView tv_niveau;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -38,16 +42,24 @@ public class difficultyStart extends AppCompatActivity {
         //parametre diffculte
         Intent intent = getIntent();
         n_DIFF = intent.getIntExtra("DIFF",0);
+        n_NIVEAU_MIN = 1;
+        n_NIVEAU = n_NIVEAU_MIN;
+        n_NIVEAU_MAX = 7;
         n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
         n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
         n_VIES = intent.getIntExtra("VIES",2);
+
         if(n_DIFF == 3)
             n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",2);
 
-        //boutons jeu
+        //compteurs
         tv_vies = findViewById(R.id.tv_vies);
         tv_vies.setText("Vies: " + n_VIES);
+        tv_niveau = findViewById(R.id.tv_niveau);
+        tv_niveau.setText("Niveau: " + n_NIVEAU);
+
+        //boutons jeu
         btns = new Button[4];
         btns[0] = findViewById(R.id.btn_facile_gauche);
         btns[1] = findViewById(R.id.btn_facile_droit);
@@ -65,13 +77,30 @@ public class difficultyStart extends AppCompatActivity {
 
     public void startDifficulte(View view)
     {
-        if(n_MANCHE == n_MANCHE_MIN) //si aucun niveau passée => on "crée" la difficulté
+        if(n_NIVEAU == n_NIVEAU_MIN) //si aucun niveau passée => on "crée" la difficulté
         {
             view.setEnabled(false);
-            random_sequence = new Byte[n_MANCHE_MAX];
         }
-        startManche(view);
+        startNiveau(view);
     }
+
+    public void startNiveau(View view)
+    {
+        if(n_NIVEAU <= n_NIVEAU_MAX)
+        {
+            tv_niveau.setText("Niveau: " + n_NIVEAU); //affichage niveau
+            random_sequence = new Byte[n_MANCHE_MAX]; //nouvelle sequence random
+            // //ajout d'un bouton
+            n_MANCHE = n_MANCHE_MIN; //1ere manche
+            startManche(view);
+        }
+        else
+        {
+            setResult(Activity.RESULT_OK);
+            finish(); //on sort
+        }
+    }
+
     public void startManche(View view)
     {
         if(n_MANCHE <= n_MANCHE_MAX)
@@ -79,12 +108,12 @@ public class difficultyStart extends AppCompatActivity {
             switchOnBouton(view,0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
                 listenSequence(view);
-            else chronoSequence(view);
+            else chronoSequence(view); //pour le niveau chrono
         }
         else
         {
-            setResult(Activity.RESULT_OK);
-            finish(); //on sort
+            n_NIVEAU++;
+            startNiveau(view);
         }
     }
     @SuppressLint("ResourceAsColor")
@@ -209,7 +238,7 @@ public class difficultyStart extends AppCompatActivity {
                 {
                     if(n_VIES>0)
                     {
-                        view.setEnabled(true); //on peut reessayer
+                        //encore des vies => reste niveau actuelle
                         n_MANCHE = n_MANCHE_MIN; //retour 1ere manche
                         n_VIES--;
                         tv_vies.setText("Vies: " + n_VIES);
@@ -217,6 +246,8 @@ public class difficultyStart extends AppCompatActivity {
                     }
                     else
                     {
+                        //plus de vies => retour au niveau 1
+                        n_NIVEAU = 0;
                         setResult(Activity.RESULT_CANCELED);
                         finish(); //on sort
                     }

@@ -11,15 +11,12 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import static java.lang.Thread.sleep;
 
 public class difficultyStart extends AppCompatActivity {
     //joueur
-    int n_NIVEAU;
+    int n_DIFF;
     int n_MANCHE_MIN;
     int n_MANCHE;
     int n_MANCHE_MAX;
@@ -38,14 +35,14 @@ public class difficultyStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_facile);
 
-        //parametre niveau
+        //parametre diffculte
         Intent intent = getIntent();
-        n_NIVEAU = intent.getIntExtra("NIVEAU",0);
+        n_DIFF = intent.getIntExtra("DIFF",0);
         n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
         n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
         n_VIES = intent.getIntExtra("VIES",2);
-        if(n_NIVEAU == 3)
+        if(n_DIFF == 3)
             n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",2);
 
         //boutons jeu
@@ -66,9 +63,9 @@ public class difficultyStart extends AppCompatActivity {
     }
 
 
-    public void startNiveau(View view)
+    public void startDifficulte(View view)
     {
-        if(n_MANCHE == n_MANCHE_MIN) //si aucune manche passée => on "crée" le niveau
+        if(n_MANCHE == n_MANCHE_MIN) //si aucun niveau passée => on "crée" la difficulté
         {
             view.setEnabled(false);
             random_sequence = new Byte[n_MANCHE_MAX];
@@ -80,7 +77,7 @@ public class difficultyStart extends AppCompatActivity {
         if(n_MANCHE <= n_MANCHE_MAX)
         {
             switchOnBouton(view,0); //lance la sequence (récursivité)
-            if(n_NIVEAU < 3)
+            if(n_DIFF < 3)
                 listenSequence(view);
             else chronoSequence(view);
         }
@@ -98,7 +95,7 @@ public class difficultyStart extends AppCompatActivity {
             //tirage au sort + stockage sequence
             if(random_sequence[button_count] == null)
             {
-                byte random_index = (byte) Math.floor(Math.random() * (4 + n_NIVEAU)); //de 1 à 4
+                byte random_index = (byte) Math.floor(Math.random() * (4 + n_DIFF)); //de 1 à 4
                 random_sequence[button_count] = random_index;
             }
 
@@ -163,7 +160,7 @@ public class difficultyStart extends AppCompatActivity {
 
     public void chronoSequence(View view)
     {
-        //niveau 3 <=> TIMER
+        //difficulté 3 <=> TIMER
         new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
@@ -181,7 +178,7 @@ public class difficultyStart extends AppCompatActivity {
         };
     }
     public void finishManche(View view,boolean success)
-        {
+    {
         new CountDownTimer(300, 300) {
             @Override
             public void onTick(long millisUntilFinished) {

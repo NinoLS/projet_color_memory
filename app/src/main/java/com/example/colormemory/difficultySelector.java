@@ -11,8 +11,8 @@ import android.widget.Button;
 
 public class difficultySelector extends AppCompatActivity {
     //niveaux
-    Button[] niveaux;
-    int niveau = 0;
+    Button[] difficultes;
+    int diff = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +20,17 @@ public class difficultySelector extends AppCompatActivity {
         setContentView(R.layout.activity_difficulty_selector);
 
         //niveaux
-        niveaux = new Button[4];
-        niveaux[0] = findViewById(R.id.btn_facile);
-        niveaux[1] = findViewById(R.id.btn_difficile);
-        niveaux[2] = findViewById(R.id.btn_expert);
-        niveaux[3] = findViewById(R.id.btn_chrono);
+        difficultes = new Button[4];
+        difficultes[0] = findViewById(R.id.btn_facile);
+        difficultes[1] = findViewById(R.id.btn_difficile);
+        difficultes[2] = findViewById(R.id.btn_expert);
+        difficultes[3] = findViewById(R.id.btn_chrono);
 
     }
 
     public void startNiveauFacile(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
-        intent.putExtra("NIVEAU",0);
+        intent.putExtra("DIFF",0);
         intent.putExtra("MANCHE_MIN",1);
         intent.putExtra("MANCHE_MAX",10);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -40,7 +40,7 @@ public class difficultySelector extends AppCompatActivity {
     }
     public void startNiveauDifficile(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
-        intent.putExtra("NIVEAU",0);
+        intent.putExtra("DIFF",0);
         intent.putExtra("MANCHE_MIN",3);
         intent.putExtra("MANCHE_MAX",15);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -50,7 +50,7 @@ public class difficultySelector extends AppCompatActivity {
     }
     public void startNiveauExpert(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
-        intent.putExtra("NIVEAU",2);
+        intent.putExtra("DIFF",2);
         intent.putExtra("MANCHE_MIN",5);
         intent.putExtra("MANCHE_MAX",20);
         intent.putExtra("TEMPS_REPONSE",0);
@@ -60,7 +60,7 @@ public class difficultySelector extends AppCompatActivity {
     }
     public void startNiveauChrono(View view) {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
-        intent.putExtra("NIVEAU",3);
+        intent.putExtra("DIFF",3);
         intent.putExtra("MANCHE_MIN",1);
         intent.putExtra("MANCHE_MAX",500); //500 maximum ?? (ou 0 - infini)
         intent.putExtra("TEMPS_REPONSE",2); //2 secondes par boutons
@@ -76,8 +76,8 @@ public class difficultySelector extends AppCompatActivity {
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                niveau++;
-                niveaux[niveau].setEnabled(true);
+                diff++;
+                difficultes[diff].setEnabled(true);
             }
         }
     }

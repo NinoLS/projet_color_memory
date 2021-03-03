@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import static java.lang.Thread.sleep;
 
@@ -27,6 +30,7 @@ public class difficultyStart extends AppCompatActivity {
     Button[] btns;
     Byte[] random_sequence;
     Byte[] pressed_sequence;
+    TextView tv_vies;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -45,6 +49,8 @@ public class difficultyStart extends AppCompatActivity {
             n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",2);
 
         //boutons jeu
+        tv_vies = findViewById(R.id.tv_vies);
+        tv_vies.setText("Vies: " + n_VIES);
         btns = new Button[4];
         btns[0] = findViewById(R.id.btn_facile_gauche);
         btns[1] = findViewById(R.id.btn_facile_droit);
@@ -209,6 +215,7 @@ public class difficultyStart extends AppCompatActivity {
                         view.setEnabled(true); //on peut reessayer
                         n_MANCHE = n_MANCHE_MIN; //retour 1ere manche
                         n_VIES--;
+                        tv_vies.setText("Vies: " + n_VIES);
                         //Toast.makeText(difficultyStart.this, "Encore "+n_VIES+" vie"+((n_VIES>1)?"s":""), Toast.LENGTH_SHORT).show();
                     }
                     else

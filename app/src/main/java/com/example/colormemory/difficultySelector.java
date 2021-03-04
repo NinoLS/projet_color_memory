@@ -8,24 +8,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class difficultySelector extends AppCompatActivity {
-    //niveaux
-    Button[] difficultes;
-    int diff = 0;
+    //difficultés
+    Button[] d_BTNS_DIFF;
+    int d_DIFF = 0;
+
+    //
+    float d_POINTS;
+    TextView tv_score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_selector);
 
-        //niveaux
-        difficultes = new Button[4];
-        difficultes[0] = findViewById(R.id.btn_facile);
-        difficultes[1] = findViewById(R.id.btn_difficile);
-        difficultes[2] = findViewById(R.id.btn_expert);
-        difficultes[3] = findViewById(R.id.btn_chrono);
+        //user
+        d_POINTS = 0;  //à changer par rapport à la BDD
+        tv_score = findViewById(R.id.tv_score);
+        tv_score.setText("Score: " + d_POINTS);
 
+        //boutons de difficultés
+        d_BTNS_DIFF = new Button[4];
+        d_BTNS_DIFF[0] = findViewById(R.id.btn_facile);
+        d_BTNS_DIFF[1] = findViewById(R.id.btn_difficile);
+        d_BTNS_DIFF[2] = findViewById(R.id.btn_expert);
+        d_BTNS_DIFF[3] = findViewById(R.id.btn_chrono);
     }
 
     public void startNiveauFacile(View view) {
@@ -80,9 +89,11 @@ public class difficultySelector extends AppCompatActivity {
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                diff++;
-                difficultes[diff].setEnabled(true);
+                d_DIFF++;
+                d_BTNS_DIFF[d_DIFF].setEnabled(true);
             }
+            d_POINTS += data.getFloatExtra("POINTS",0);
+            tv_score.setText("Score: " + d_POINTS);
         }
     }
 }

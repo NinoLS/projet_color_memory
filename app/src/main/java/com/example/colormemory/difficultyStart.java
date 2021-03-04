@@ -110,7 +110,7 @@ public class difficultyStart extends AppCompatActivity {
         }
         else
         {
-            setResult(Activity.RESULT_OK);
+            setResult(Activity.RESULT_OK,new Intent().putExtra("POINTS",n_POINTS));
             finish(); //on sort
         }
     }
@@ -265,7 +265,9 @@ public class difficultyStart extends AppCompatActivity {
                     {
                         //plus de vies => on sort ? OU retour au niveau 1
                         n_NIVEAU = 0;
-                        setResult(Activity.RESULT_CANCELED);
+                        Intent intent = new Intent(difficultyStart.this,difficultySelector.class);
+                        intent.putExtra("POINTS",(float)n_POINTS);
+                        setResult(Activity.RESULT_CANCELED,intent);
                         finish(); //on sort
                     }
                 }

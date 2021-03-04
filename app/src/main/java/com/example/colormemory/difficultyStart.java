@@ -48,7 +48,7 @@ public class difficultyStart extends AppCompatActivity {
         n_DIFF = intent.getIntExtra("DIFF",0);
         n_NIVEAU_MIN = 1;
         n_NIVEAU = n_NIVEAU_MIN;
-        n_NIVEAU_MAX = 7;
+        n_NIVEAU_MAX = 3;
         n_MANCHE_MIN = intent.getIntExtra("MANCHE_MIN",1);
         n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
@@ -110,7 +110,9 @@ public class difficultyStart extends AppCompatActivity {
         }
         else
         {
-            setResult(Activity.RESULT_OK,new Intent().putExtra("POINTS",n_POINTS));
+            Intent intent = new Intent(difficultyStart.this,difficultySelector.class);
+            intent.putExtra("POINTS",(float)n_POINTS);
+            setResult(Activity.RESULT_OK,intent);
             finish(); //on sort
         }
     }

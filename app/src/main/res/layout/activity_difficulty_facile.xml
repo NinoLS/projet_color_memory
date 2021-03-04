@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/tv_niveau"
             android:text="@string/niveau"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_row="0"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/vies"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_column="2"
             app:layout_columnWeight="1"
             app:layout_row="0"
@@ -132,6 +132,16 @@
             android:visibility="invisible"
             android:backgroundTint="#0000FF" />
 
+        <TextView
+            android:id="@+id/tv_pointsManche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/points"
+            android:textSize="20sp"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_row="4"
+            app:layout_rowWeight="1" />
 
     </androidx.gridlayout.widget.GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

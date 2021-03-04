@@ -11,4 +11,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="vies">Vies:</string>
     <string name="niveau">Niveau:</string>
+    <string name="points">Points: 0</string>
 </resources>

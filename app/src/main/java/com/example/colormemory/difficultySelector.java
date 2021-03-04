@@ -32,9 +32,10 @@ public class difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("DIFF",0);
         intent.putExtra("MANCHE_MIN",1);
-        intent.putExtra("MANCHE_MAX",3);
+        intent.putExtra("MANCHE_MAX",3); //à changer 3 par 10
         intent.putExtra("TEMPS_REPONSE",0);
         intent.putExtra("VIES",2);
+        intent.putExtra("POIDS",1);
 
         startActivityForResult(intent,0,intent.getExtras());
     }
@@ -45,6 +46,7 @@ public class difficultySelector extends AppCompatActivity {
         intent.putExtra("MANCHE_MAX",15);
         intent.putExtra("TEMPS_REPONSE",0);
         intent.putExtra("VIES",2);
+        intent.putExtra("POIDS",1.5);
 
         startActivityForResult(intent,0,intent.getExtras());
     }
@@ -55,6 +57,7 @@ public class difficultySelector extends AppCompatActivity {
         intent.putExtra("MANCHE_MAX",20);
         intent.putExtra("TEMPS_REPONSE",0);
         intent.putExtra("VIES",3);
+        intent.putExtra("POIDS",3);
 
         startActivityForResult(intent,0,intent.getExtras());
     }
@@ -65,6 +68,7 @@ public class difficultySelector extends AppCompatActivity {
         intent.putExtra("MANCHE_MAX",500); //500 maximum ?? (ou 0 - infini)
         intent.putExtra("TEMPS_REPONSE",2); //2 secondes par boutons
         intent.putExtra("VIES",3);
+        intent.putExtra("POIDS",2);
 
         startActivityForResult(intent,0,intent.getExtras());
     }

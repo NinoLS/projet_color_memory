@@ -25,6 +25,8 @@ public class difficultyStart extends AppCompatActivity {
     int n_MANCHE_MAX;
     int n_TEMPS_REPONSE;
     int n_VIES;
+    float n_POIDS;
+    int n_POINTS = 0;
 
     //jeu
     Button[] btns;
@@ -33,6 +35,7 @@ public class difficultyStart extends AppCompatActivity {
     Byte[] pressed_sequence;
     TextView tv_vies;
     TextView tv_niveau;
+    TextView tv_points;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -50,6 +53,7 @@ public class difficultyStart extends AppCompatActivity {
         n_MANCHE = n_MANCHE_MIN;
         n_MANCHE_MAX = intent.getIntExtra("MANCHE_MAX",10);
         n_VIES = intent.getIntExtra("VIES",2);
+        n_POIDS = intent.getIntExtra("POIDS",1);
 
         if(n_DIFF == 3)
             n_TEMPS_REPONSE = intent.getIntExtra("TEMPS_REPONSE",2);
@@ -59,6 +63,7 @@ public class difficultyStart extends AppCompatActivity {
         tv_vies.setText("Vies: " + n_VIES);
         tv_niveau = findViewById(R.id.tv_niveau);
         tv_niveau.setText("Niveau: " + n_NIVEAU);
+        tv_points = findViewById(R.id.tv_pointsManche);
 
         //ordres des boutons (id)
         btns_ids = new int[10];
@@ -120,7 +125,9 @@ public class difficultyStart extends AppCompatActivity {
         }
         else
         {
+            n_POINTS += n_POIDS * n_NIVEAU;
             n_NIVEAU++;
+            tv_points.setText("Points: " + n_POINTS);
             startNiveau();
         }
     }

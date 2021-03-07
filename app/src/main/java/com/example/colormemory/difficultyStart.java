@@ -36,6 +36,7 @@ public class difficultyStart extends AppCompatActivity {
     TextView tv_vies;
     TextView tv_niveau;
     TextView tv_points;
+    Boolean chrono = false;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -219,14 +220,16 @@ public class difficultyStart extends AppCompatActivity {
                     pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
                     if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
                     {
+                        if(chrono)
+                            chronoFinish();
                         setEnableButtons(false);
-                        //finishManche(compareTwoTab(pressed_sequence,random_sequence));
                     }
                 }
             });
         }
 
         //difficulté 3 <=> TIMER
+        chrono = true;
         new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
@@ -236,15 +239,22 @@ public class difficultyStart extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                setEnableButtons(false);
-                if(pressed_sequence[pressed_sequence.length-1] != null) //si tout complété
-                {
-                    finishManche(compareTwoTab(pressed_sequence,random_sequence));
-                }
-                else finishManche(false);
+                if(chrono)
+                    chronoFinish();
             }
         }.start();
     }
+    public void chronoFinish()
+    {
+        chrono = false;
+        setEnableButtons(false);
+        if(pressed_sequence[pressed_sequence.length-1] != null) //si tout complété
+        {
+            finishManche(compareTwoTab(pressed_sequence,random_sequence));
+        }
+        else finishManche(false);
+    }
+
     public void finishManche(boolean success)
     {
         new CountDownTimer(300, 300) {

@@ -237,7 +237,7 @@ public class difficultyStart extends AppCompatActivity {
             @Override
             public void onFinish() {
                 setEnableButtons(false);
-                if(findFirstFreeIndex(pressed_sequence) == pressed_sequence.length)
+                if(pressed_sequence[pressed_sequence.length-1] != null) //si tout complété
                 {
                     finishManche(compareTwoTab(pressed_sequence,random_sequence));
                 }

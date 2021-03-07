@@ -121,7 +121,7 @@ public class difficultyStart extends AppCompatActivity {
             switchOnBouton(0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
                 listenSequence();
-            else chronoSequence(); //pour le niveau chrono
+            //else chronoSequence(); //pour le niveau chrono
         }
         else
         {
@@ -171,8 +171,12 @@ public class difficultyStart extends AppCompatActivity {
                 }
             }.start();
         }
-        else
+        else //séquence terminée
+        {
             setEnableButtons(true); //activer les boutons
+            if(n_DIFF == 3)
+                chronoSequence(); //pour le niveau CHRONO
+        }
     }
 
 
@@ -205,6 +209,23 @@ public class difficultyStart extends AppCompatActivity {
     }
     public void chronoSequence()
     {
+        pressed_sequence = new Byte[n_MANCHE]; //"vider" la sequence (manches d'avant)
+        for(byte b=0;b<btns.length;b++)
+        {
+            final byte finalB = b;
+            btns[b].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
+                    if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
+                    {
+                        setEnableButtons(false);
+                        //finishManche(compareTwoTab(pressed_sequence,random_sequence));
+                    }
+                }
+            });
+        }
+
         //difficulté 3 <=> TIMER
         new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
@@ -215,12 +236,14 @@ public class difficultyStart extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                setEnableButtons(false);
                 if(findFirstFreeIndex(pressed_sequence) == pressed_sequence.length)
                 {
-                    if(compareTwoTab(pressed_sequence,random_sequence));
+                    finishManche(compareTwoTab(pressed_sequence,random_sequence));
                 }
+                else finishManche(false);
             }
-        };
+        }.start();
     }
     public void finishManche(boolean success)
     {

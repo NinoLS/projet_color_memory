@@ -74,7 +74,7 @@ public class difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("DIFF",3);
         intent.putExtra("MANCHE_MIN",1);
-        intent.putExtra("MANCHE_MAX",500); //500 maximum ?? (ou 0 - infini)
+        intent.putExtra("MANCHE_MAX",250); //250 byte, maximum ?? (ou 0 - infini?)
         intent.putExtra("TEMPS_REPONSE",2); //2 secondes par boutons
         intent.putExtra("VIES",3);
         intent.putExtra("POIDS",2);

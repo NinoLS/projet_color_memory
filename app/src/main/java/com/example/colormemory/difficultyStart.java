@@ -122,7 +122,12 @@ public class difficultyStart extends AppCompatActivity {
             switchOnBouton(0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
                 listenSequence();
-            //else chronoSequence(); //pour le niveau chrono
+            //else chronoSequence(); //fait dans le CountDownTimer (sequence boutons)
+            if(n_DIFF == 3 && n_MANCHE%5==0) //points toutes les 5 manches (chrono) à changer ?
+            {
+                n_POINTS += n_POIDS * n_MANCHE;
+                tv_points.setText("Points: " + n_POINTS);
+            }
         }
         else
         {

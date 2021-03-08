@@ -48,15 +48,16 @@ public class UserManager {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public User readUser(int _id){
+    public User readUser(String _name){
         User user = new User("null", "null", "null");
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID_USER + " = " + _id, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_NOM_USER + " = " + "'" + _name + "'", null);
         if(cursor.moveToFirst()){
             user.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));
             user.setName(cursor.getString(cursor.getColumnIndex(KEY_NOM_USER)));
             user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_PASSWORD_USER)));
             user.setBirth(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_USER)));
             cursor.close();
+            return user;
         }
         return user;
     }

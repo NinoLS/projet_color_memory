@@ -43,13 +43,15 @@ public class SignUpActivity extends AppCompatActivity {
             try{
                 checkUser  = userManager.readUser(name);
             }catch (Exception e){
-                Log.d("ERROR : ", e.getMessage().toString());
+                Log.d("ERROR : ", e.getMessage());
             }
             userManager.close();
 
             if(checkUser.getName().equals("null")){
                 userManager.open();
-                userManager.createUser(user);
+                if(userManager.createUser(user) == -1){
+                    Log.d("WRONG : ", "CAN'T CREATE USER");
+                }
                 userManager.close();
                 Log.d("INFO :", "USER CREATED : " + name);
 

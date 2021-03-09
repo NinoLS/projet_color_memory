@@ -47,7 +47,6 @@
         tools:ignore="TextFields" />
 
     <!-- Birth date -->
-
     <DatePicker
         android:id="@+id/birthDate_input"
         android:layout_width="228dp"
@@ -62,6 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/birthDate_text" />
 
+    <!-- Datepicker text-->
     <TextView
         android:id="@+id/birthDate_text"
         android:layout_width="wrap_content"
@@ -73,6 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
+    <!-- Register button-->
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
@@ -85,6 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/birthDate_input" />
 
+    <!-- Email input-->
     <EditText
         android:id="@+id/email_input"
         android:layout_width="wrap_content"
@@ -98,6 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
+    <!-- Radiogroup for gender button -->
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
@@ -112,13 +115,13 @@
             android:id="@+id/radioButton1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Men" />
+            android:text="@string/men" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Women" />
+            android:text="@string/women" />
     </RadioGroup>
 
 

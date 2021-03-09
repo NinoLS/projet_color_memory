@@ -36,6 +36,7 @@ public class difficultyStart extends AppCompatActivity {
     TextView tv_vies;
     TextView tv_niveau;
     TextView tv_points;
+    Boolean chrono = false;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -123,7 +124,12 @@ public class difficultyStart extends AppCompatActivity {
             switchOnBouton(0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
                 listenSequence();
-            else chronoSequence(); //pour le niveau chrono
+            //else chronoSequence(); //fait dans le CountDownTimer (sequence boutons)
+            if(n_DIFF == 3 && n_MANCHE%5==0) //points toutes les 5 manches (chrono) à changer ?
+            {
+                n_POINTS += n_POIDS * n_MANCHE;
+                tv_points.setText("Points: " + n_POINTS);
+            }
         }
         else
         {
@@ -173,8 +179,12 @@ public class difficultyStart extends AppCompatActivity {
                 }
             }.start();
         }
-        else
+        else //séquence terminée
+        {
             setEnableButtons(true); //activer les boutons
+            if(n_DIFF == 3)
+                chronoSequence(); //pour le niveau CHRONO
+        }
     }
 
 
@@ -207,7 +217,26 @@ public class difficultyStart extends AppCompatActivity {
     }
     public void chronoSequence()
     {
+        pressed_sequence = new Byte[n_MANCHE]; //"vider" la sequence (manches d'avant)
+        for(byte b=0;b<btns.length;b++)
+        {
+            final byte finalB = b;
+            btns[b].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pressed_sequence[findFirstFreeIndex(pressed_sequence)] = finalB;
+                    if(pressed_sequence[pressed_sequence.length-1] != null) //Tout complété
+                    {
+                        if(chrono)
+                            chronoFinish();
+                        setEnableButtons(false);
+                    }
+                }
+            });
+        }
+
         //difficulté 3 <=> TIMER
+        chrono = true;
         new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
@@ -217,13 +246,22 @@ public class difficultyStart extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if(findFirstFreeIndex(pressed_sequence) == pressed_sequence.length)
-                {
-                    if(compareTwoTab(pressed_sequence,random_sequence));
-                }
+                if(chrono)
+                    chronoFinish();
             }
-        };
+        }.start();
     }
+    public void chronoFinish()
+    {
+        chrono = false;
+        setEnableButtons(false);
+        if(pressed_sequence[pressed_sequence.length-1] != null) //si tout complété
+        {
+            finishManche(compareTwoTab(pressed_sequence,random_sequence));
+        }
+        else finishManche(false);
+    }
+
     public void finishManche(boolean success)
     {
         new CountDownTimer(300, 300) {

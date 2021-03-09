@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,10 @@ public class difficultySelector extends AppCompatActivity {
     //
     float d_POINTS;
     TextView tv_score;
+    TextView tv_info_facile;
+    TextView tv_info_difficile;
+    TextView tv_info_expert;
+    TextView tv_info_chrono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,13 @@ public class difficultySelector extends AppCompatActivity {
         d_POINTS = 0;  //à changer par rapport à la BDD
         tv_score = findViewById(R.id.tv_score);
         tv_score.setText("Score: " + d_POINTS);
+
+
+        tv_info_facile = findViewById(R.id.tv_info_facile);
+        tv_info_difficile = findViewById(R.id.tv_info_difficile);
+        tv_info_expert = findViewById(R.id.tv_info_expert);
+        tv_info_chrono = findViewById(R.id.tv_info_chrono);
+
 
         //boutons de difficultés
         d_BTNS_DIFF = new Button[4];
@@ -95,5 +107,23 @@ public class difficultySelector extends AppCompatActivity {
             d_POINTS += data.getFloatExtra("POINTS",0);
             tv_score.setText("Score: " + d_POINTS);
         }
+    }
+
+    public void displayInfo(View view) {
+        if(tv_info_facile.getCurrentTextColor() == Color.BLACK)
+        {
+            tv_info_facile.setTextColor(Color.WHITE);
+            tv_info_difficile.setTextColor(Color.WHITE);
+            tv_info_expert.setTextColor(Color.WHITE);
+            tv_info_chrono.setTextColor(Color.WHITE);
+        }
+        else
+        {
+            tv_info_facile.setTextColor(Color.BLACK);
+            tv_info_difficile.setTextColor(Color.BLACK);
+            tv_info_expert.setTextColor(Color.BLACK);
+            tv_info_chrono.setTextColor(Color.BLACK);
+        }
+
     }
 }

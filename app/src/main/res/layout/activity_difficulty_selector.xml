@@ -91,6 +91,44 @@
                 android:text="@string/chrono" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="20dp" >
+
+            <Button
+                android:id="@+id/btn_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info"
+                android:backgroundTint="@color/purple_700"
+                android:onClick="displayInfo"/>
+        </TableRow>
+
+        <TextView
+            android:id="@+id/tv_info_facile"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_facile" />
+        <TextView
+            android:id="@+id/tv_info_difficile"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_difficile" />
+        <TextView
+            android:id="@+id/tv_info_expert"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_expert" />
+        <TextView
+            android:id="@+id/tv_info_chrono"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_chrono" />
+
+
     </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

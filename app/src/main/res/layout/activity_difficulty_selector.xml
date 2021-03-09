@@ -7,10 +7,13 @@
     tools:context=".difficultySelector">
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-38dp"
-        tools:layout_editor_absoluteY="119dp">
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -27,7 +30,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_facile"
@@ -37,6 +41,14 @@
                 android:onClick="startNiveauFacile"
                 android:text="@string/facile" />
 
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
+
             <Button
                 android:id="@+id/btn_difficile"
                 android:layout_width="wrap_content"
@@ -45,6 +57,13 @@
                 android:enabled="false"
                 android:onClick="startNiveauDifficile"
                 android:text="@string/difficile" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_expert"
@@ -54,6 +73,13 @@
                 android:enabled="false"
                 android:onClick="startNiveauExpert"
                 android:text="@string/expert" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_chrono"
@@ -63,7 +89,6 @@
                 android:enabled="true"
                 android:onClick="startNiveauChrono"
                 android:text="@string/chrono" />
-
         </TableRow>
 
     </TableLayout>

@@ -125,9 +125,9 @@ public class difficultyStart extends AppCompatActivity {
             if(n_DIFF < 3)
                 listenSequence();
             //else chronoSequence(); //fait dans le CountDownTimer (sequence boutons)
-            if(n_DIFF == 3 && n_MANCHE%5==0) //points toutes les 5 manches (chrono) à changer ?
+            if(n_DIFF == 3 && (n_MANCHE-1)%5==0) //points toutes les 5 manches (chrono) à changer ?
             {
-                n_POINTS += n_POIDS * n_MANCHE;
+                n_POINTS += n_POIDS * (n_MANCHE-1)/5;
                 tv_points.setText("Points: " + n_POINTS);
             }
         }
@@ -165,7 +165,7 @@ public class difficultyStart extends AppCompatActivity {
             }.start();
 
             //eteindre button
-            new CountDownTimer(1500, 1500) {
+            new CountDownTimer(1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                 }
@@ -236,8 +236,8 @@ public class difficultyStart extends AppCompatActivity {
         }
 
         //difficulté 3 <=> TIMER
-        chrono = true;
-        new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
+        chrono = true;                          //1000 (ms->s) trop long, trop facile
+        new CountDownTimer(n_TEMPS_REPONSE*600*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
             public void onTick(long millisUntilFinished) {

@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -30,6 +33,7 @@ public class difficultyStart extends AppCompatActivity {
 
     //jeu
     Button[] btns;
+    int[] btns_colors;
     int[] btns_ids;
     Byte[] random_sequence;
     Byte[] pressed_sequence;
@@ -42,7 +46,7 @@ public class difficultyStart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_difficulty_facile);
+        setContentView(R.layout.activity_difficulty);
 
         //parametre diffculte
         Intent intent = getIntent();
@@ -78,6 +82,18 @@ public class difficultyStart extends AppCompatActivity {
         btns_ids[6] = R.id.btn_haut_droit;
         btns_ids[5] = R.id.btn_haut_gauche;
         btns_ids[9] = R.id.btn_bas_droit;
+
+        btns_colors = new int[10];
+        btns_colors[0] = Color.rgb(76,175,80);
+        btns_colors[1] = Color.rgb(255,235,59);
+        btns_colors[2] = Color.rgb(244,67,54);
+        btns_colors[3] = Color.rgb(3,169,244);
+        btns_colors[4] = Color.rgb(138,49,49);
+        btns_colors[7] = Color.rgb(119,119,119);
+        btns_colors[8] = Color.rgb(185,38,195);
+        btns_colors[6] = Color.rgb(103,58,183);
+        btns_colors[5] = Color.rgb(255,152,0);
+        btns_colors[9] = Color.rgb(9,213,193);
 
         startDifficulty();
     }
@@ -172,7 +188,7 @@ public class difficultyStart extends AppCompatActivity {
 
                 @Override
                 public void onFinish() {
-                    btns[random_sequence[button_count]].setBackgroundColor(Color.BLUE);
+                    btns[random_sequence[button_count]].setBackgroundColor(btns_colors[random_sequence[button_count]]);
                     btns[random_sequence[button_count]].setText("");
                     switchOnBouton(button_count+1);
 
@@ -285,7 +301,7 @@ public class difficultyStart extends AppCompatActivity {
             @Override
             public void onFinish() {
                 for(int b=0;b<btns.length;b++)
-                    btns[b].setBackgroundColor(Color.BLUE);
+                    btns[b].setBackgroundColor(btns_colors[b]);
                 if (success) {
                     n_MANCHE++;
                     startManche();
@@ -346,6 +362,7 @@ public class difficultyStart extends AppCompatActivity {
             btns[i].setEnabled(bool);
         }
     }
+    @SuppressLint("ResourceAsColor")
     public void displayButtons(int number)
     {
         btns = new Button[number];
@@ -353,7 +370,7 @@ public class difficultyStart extends AppCompatActivity {
         {
             btns[b] = findViewById(btns_ids[b]);
             btns[b].setVisibility(View.VISIBLE);
-            btns[b].setBackgroundColor(Color.BLUE);
+            btns[b].setBackgroundColor(btns_colors[b]);
         }
         setEnableButtons(false); //activer les boutons
     }

@@ -48,7 +48,7 @@ public class difficultyStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
-        //parametre diffculte
+        //parametre difficulte
         Intent intent = getIntent();
         n_DIFF = intent.getIntExtra("DIFF",0);
         n_NIVEAU_MIN = 1;

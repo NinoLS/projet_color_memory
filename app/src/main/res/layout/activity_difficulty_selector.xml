@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:onClick="startNiveauFacile"
-                android:text="@string/facile" />
+                android:text="@string/facile"
+                android:backgroundTint="@color/my_blue_green" />
 
         </TableRow>
 
@@ -54,9 +55,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:onClick="startNiveauDifficile"
-                android:text="@string/difficile" />
+                android:text="@string/difficile"
+                android:backgroundTint="@color/my_orange"/>
         </TableRow>
 
         <TableRow
@@ -70,9 +72,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:onClick="startNiveauExpert"
-                android:text="@string/expert" />
+                android:text="@string/expert"
+                android:backgroundTint="@color/my_red"/>
         </TableRow>
 
         <TableRow
@@ -88,7 +91,8 @@
                 android:layout_margin="3dp"
                 android:enabled="true"
                 android:onClick="startNiveauChrono"
-                android:text="@string/chrono" />
+                android:text="@string/chrono"
+                android:backgroundTint="@color/my_violet"/>
         </TableRow>
 
         <TableRow
@@ -102,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/info"
-                android:backgroundTint="@color/purple_700"
+                android:backgroundTint="@color/my_grey"
                 android:onClick="displayInfo"/>
         </TableRow>
 

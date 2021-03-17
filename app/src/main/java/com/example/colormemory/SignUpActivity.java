@@ -6,8 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.sql.Date;
 import java.util.Objects;
 
 import database.User;
@@ -22,7 +25,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
     }
 
-    //TODO : Fixer le problème de cursor null
     public void register(View v){
         EditText nameInput = findViewById(R.id.login_input);
         String name = nameInput.getText().toString().trim();
@@ -30,18 +32,35 @@ public class SignUpActivity extends AppCompatActivity {
         EditText passwordInput = findViewById(R.id.password_input);
         String password = passwordInput.getText().toString().trim();
 
+        EditText emailInput = findViewById(R.id.email_input);
+        String email = emailInput.getText().toString().trim();
+
+        RadioGroup genderChoiceGroup = findViewById(R.id.genderChoice_group);
+        RadioButton genderChoiceButton = findViewById(genderChoiceGroup.getCheckedRadioButtonId());
+        String genderChoice = genderChoiceButton.getText().toString();
+        byte genderNumber;
+        if(genderChoice.equals("Men")){
+            genderNumber = 1;
+        }else{
+            genderNumber = 0;
+        }
+
+
         DatePicker birth = findViewById(R.id.birthDate_input);
         String birthParsed = birth.getDayOfMonth() + "/" + birth.getMonth() + "/" + birth.getYear();
 
+        Log.d("INFO : ", name + " / " + password + " / " + birthParsed + " / " + email + " / " + genderChoice + " / " + genderNumber);
+
+
         //Check if inputs are OK
-        if(name.length() > 2 && password.length() > 4 && birthParsed.length() > 7){
-            User user =new User(name, password, birthParsed);
+        if(name.length() > 2 && password.length() > 4 && birthParsed.length() > 7 && email.length() > 5){
+            User user =new User(name, password, birthParsed, email, genderNumber);
             //Try to get a user, with the name inserted. If not, return null user
             userManager.open();
-            User checkUser = new User("null", "null", "null");
+            User checkUser = new User("null", "null", "null", "null", (byte) 0);
             //readUser in a try/catch to avoid application crash because of null cursor
             try{
-                checkUser  = userManager.readUser(name);
+                checkUser  = userManager.readUser(email);
             }catch (Exception e){
                 Log.d("ERROR : ", e.getMessage());
             }
@@ -56,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.d("INFO :", "USER CREATED : " + name);
 
             }else {
-                Log.d("WRONG :", "USERNAME ALREADY USED : " + name);
+                Log.d("WRONG :", "EMAIL ALREADY USED : " + email);
             }
         }else{
             Log.d("WRONG :", "INPUT WRONG");

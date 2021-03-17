@@ -51,11 +51,7 @@ public class User {
 
     public String getEmail(){return  email;}
     public void setEmail(String email){
-        if((email.length() > 0) && (email.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$"))){
-            this.email = email;
-        }else {
-            throw new IllegalArgumentException();
-        }
+        this.email = email;
     }
 
     public byte getGender(){return gender;}
@@ -70,6 +66,6 @@ public class User {
     @NonNull
     @Override
     public String toString() {
-        return idUser + " -> " + "Name : " + name + " / Birth : " + birth;
+        return idUser + " -> " + "Name : " + name + " / Birth : " + birth + " / Gender : ";
     }
 }

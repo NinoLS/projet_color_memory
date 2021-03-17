@@ -14,13 +14,15 @@ public class UserManager {
     public static final String KEY_NOM_USER = "nom_user";
     public static final String KEY_PASSWORD_USER = "password_user";
     public static final String KEY_BIRTH_USER = "birth_user";
-
-    public static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (\n" +
-            " '" + KEY_ID_USER + "' INT NOT NULL AUTO_INCREMENT,\n" +
-            " '" + KEY_NOM_USER + "' VARCHAR(45) NOT NULL,\n" +
-            " '" + KEY_PASSWORD_USER + "' VARCHAR(45) NOT NULL,\n" +
-            " '" + KEY_BIRTH_USER + "' VARCHAR(45) NOT NULL,\n" +
-            "  PRIMARY KEY (`"+ KEY_ID_USER + "`))\n";
+    public static final String KEY_EMAIL_USER = "email_user";
+    public static final String KEY_GENDER_USER = "gender_user";
+    public static final String CREATE_TABLE_USER = "CREATE TABLE `user` (\n" +
+            "  `id_user` INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+            "  `nom_user` VARCHAR(45) NOT NULL,\n" +
+            "  `password_user` VARCHAR(45) NOT NULL,\n" +
+            "  `birth_user` VARCHAR(45) NOT NULL,\n" +
+            "  `email_user` VARCHAR(255) NOT NULL,\n" +
+            "  `gender_user` TINYINT(1) NOT NULL)";
 
     private MySQLite myDb;
     private SQLiteDatabase db;
@@ -44,18 +46,22 @@ public class UserManager {
         values.put(KEY_NOM_USER, _user.getName());
         values.put(KEY_PASSWORD_USER, _user.getPassword());
         values.put(KEY_BIRTH_USER, _user.getBirth());
+        values.put(KEY_EMAIL_USER, _user.getEmail());
+        values.put(KEY_GENDER_USER, _user.getGender());
 
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public User readUser(String _name){
-        User user = new User("null", "null", "null");
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_NOM_USER + " = " + "'" + _name + "'", null);
+    public User readUser(String _email){
+        User user = new User("null", "null", "null", "null", (byte) 0);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_EMAIL_USER + " = " + "'" + _email + "'", null);
         if(cursor.moveToFirst()){
             user.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));
             user.setName(cursor.getString(cursor.getColumnIndex(KEY_NOM_USER)));
             user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_PASSWORD_USER)));
             user.setBirth(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_USER)));
+            user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL_USER)));
+            user.setGender((byte) cursor.getInt(cursor.getColumnIndex(KEY_GENDER_USER)));
             cursor.close();
             return user;
         }
@@ -68,20 +74,23 @@ public class UserManager {
         String name = "'" + _user.getName() + "'";
         String password = "'" + _user.getPassword() + "'";
         String birth = "'" + _user.getBirth() + "'";
+        String email = "'" + _user.getEmail() + "'";
 
         values.put(KEY_NOM_USER, name);
         values.put(KEY_PASSWORD_USER, password);
         values.put(KEY_BIRTH_USER, birth);
+        values.put(KEY_EMAIL_USER, email);
+        values.put(KEY_GENDER_USER, _user.getGender());
 
         String whereClause = KEY_ID_USER + " = ?";
-        String[] whereClauseArgs = {_user.getName() + ""};
+        String[] whereClauseArgs = {_user.getEmail() + ""};
 
-        return db.delete(TABLE_NAME, whereClause, whereClauseArgs);
+        return db.update(TABLE_NAME,values, whereClause, whereClauseArgs);
     }
 
     public int deleteUser(User _user){
         String whereClause = KEY_ID_USER + " = ?";
-        String[] whereClauseArgs = {_user.getName() + ""};
+        String[] whereClauseArgs = {_user.getEmail() + ""};
 
         return db.delete(TABLE_NAME, whereClause, whereClauseArgs);
     }

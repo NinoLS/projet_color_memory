@@ -3,52 +3,57 @@ package database;
 import androidx.annotation.NonNull;
 
 public class Score {
-    private int idScore;
-    private String player;
-    private int score;
+    private int id_score;
+    private String email_user;
+    private int value_score;
 
-    public Score(int _idScore, String _player, int _score){
+    public Score(int _idScore, String _email_user, int _score){
         this.setIdScore(_idScore);
-        this.setPlayer(_player);
+        this.setPlayer(_email_user);
         this.setScore(_score);
     }
 
     public int getScore() {
-        return score;
+        return value_score;
     }
 
     public void setScore(int score) {
-        if(score <= 0){
+        if(score < 0){
             throw new IllegalArgumentException();
         }else{
-            this.score = score;
+            this.value_score = score;
+        }
+    }
+
+    public void incrementScore(int score){
+        if(score < 0){
+            throw new IllegalArgumentException();
+        }else if(this.value_score == 0){
+            value_score = score;
+        }else{
+            this.value_score += score;
         }
     }
 
     public String getPlayer() {
-        return player;
+        return email_user;
     }
 
-    public void setPlayer(String player) {
-        if(player != ""){
-            this.player = player;
-        }else{
-            throw new IllegalArgumentException();
-        }
-
+    public void setPlayer(String _email_user) {
+        this.email_user = _email_user;
     }
 
     public int getIdScore() {
-        return idScore;
+        return id_score;
     }
 
-    public void setIdScore(int idScore) {
-        this.idScore = idScore;
+    public void setIdScore(int _id_score) {
+        this.id_score = _id_score;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return idScore + " : " + player + " -> " + score + " Points.";
+        return id_score + " : " + email_user + " -> " +value_score + " Points.";
     }
 }

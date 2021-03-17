@@ -7,8 +7,7 @@ public class Score {
     private String email_user;
     private int value_score;
 
-    public Score(int _idScore, String _email_user, int _score){
-        this.setIdScore(_idScore);
+    public Score(String _email_user, int _score){
         this.setPlayer(_email_user);
         this.setScore(_score);
     }

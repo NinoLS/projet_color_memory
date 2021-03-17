@@ -23,4 +23,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,SignUpActivity.class);
         startActivity(intent);
     }
+
+    public void login(View v){
+        EditText name_input = findViewById(R.id.loginName_input);
+        String name_inputContent = name_input.getText().toString().trim();
+
+        EditText password_input
+    }
 }

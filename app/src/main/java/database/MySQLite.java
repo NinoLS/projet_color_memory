@@ -24,6 +24,7 @@ public class MySQLite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(UserManager.CREATE_TABLE_USER);
+        db.execSQL(ScoreManager.CREATE_TABLE_SCORE);
     }
 
     @Override

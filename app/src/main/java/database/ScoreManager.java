@@ -13,10 +13,10 @@ public class ScoreManager {
     public static final String KEY_ID_SCORE = "id_score";
     public static final String KEY_EMAIL_USER = "email_user";
     public static final String KEY_VALUE_SCORE = "value_score";
-    public static final String CREATE_TABLE_USER = "CREATE TABLE `user` (\n" +
+    public static final String CREATE_TABLE_SCORE = "CREATE TABLE `score` (\n" +
             "  `id_score` INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
             "  `email_user` VARCHAR(45) NOT NULL,\n" +
-            "  `value_score` VARCHAR(45) NOT NULL";
+            "  `value_score` INT NOT NULL);";
 
     private MySQLite myDb;
     private SQLiteDatabase db;
@@ -44,7 +44,7 @@ public class ScoreManager {
     }
 
     public Score readScore(String _email){
-        Score score = new Score(0, "null", 0);
+        Score score = new Score("null", 0);
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_EMAIL_USER + " = " + "'" + _email + "'", null);
         if(cursor.moveToFirst()){
             score.setIdScore(cursor.getInt(cursor.getColumnIndex(KEY_ID_SCORE)));

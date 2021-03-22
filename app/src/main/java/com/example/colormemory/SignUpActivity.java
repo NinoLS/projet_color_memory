@@ -8,11 +8,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.content.Intent;
 import android.widget.Toast;
-
-import java.sql.Date;
-import java.util.Objects;
-
 import database.Score;
 import database.ScoreManager;
 import database.User;
@@ -75,19 +72,28 @@ public class SignUpActivity extends AppCompatActivity {
                 scoreManager.open();
                 if(userManager.createUser(user) == -1){
                     Log.d("WRONG : ", "CAN'T CREATE USER");
+                    Toast.makeText(getBaseContext(), "Erreur : Utilisateur non créé.", Toast.LENGTH_LONG).show();
+
                 }
                 if(scoreManager.createScore(score) == -1){
                     Log.d("WRONG :", "CAN'T CREATE SCORE FOR A USER");
+                    Toast.makeText(getBaseContext(), "Erreur : Score non créé", Toast.LENGTH_LONG).show();
                 }
                 userManager.close();
                 scoreManager.close();
                 Log.d("INFO :", "USER CREATED : " + name);
                 Log.d("INFO :", "SCORE CREATED, ID : " + score.getPlayer());
+
+                //Redirect to MainActivity for login
+                Intent mainActivity = new Intent(this, MainActivity.class);
+                startActivity(mainActivity);
             }else {
                 Log.d("WRONG :", "EMAIL ALREADY USED : " + email);
+                Toast.makeText(getBaseContext(), "Mail déjà utilisé !", Toast.LENGTH_LONG).show();
             }
         }else{
             Log.d("WRONG :", "INPUT WRONG");
+            Toast.makeText(getBaseContext(), "Les données saisies sont incorrects", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -54,15 +54,20 @@ public class UserManager {
 
     public User readUser(String _email){
         User user = new User("null", "null", "null", "null", (byte) 0);
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_EMAIL_USER + " = " + "'" + _email + "'", null);
-        if(cursor.moveToFirst()){
-            user.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));
-            user.setName(cursor.getString(cursor.getColumnIndex(KEY_NOM_USER)));
-            user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_PASSWORD_USER)));
-            user.setBirth(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_USER)));
-            user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL_USER)));
-            user.setGender((byte) cursor.getInt(cursor.getColumnIndex(KEY_GENDER_USER)));
-            cursor.close();
+        try{
+            String request = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_EMAIL_USER + " = " + "'" + _email + "'";
+            Cursor cursor = db.rawQuery(request, null);
+            if(cursor.moveToFirst()){
+                user.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));
+                user.setName(cursor.getString(cursor.getColumnIndex(KEY_NOM_USER)));
+                user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_PASSWORD_USER)));
+                user.setBirth(cursor.getString(cursor.getColumnIndex(KEY_BIRTH_USER)));
+                user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL_USER)));
+                user.setGender((byte) cursor.getInt(cursor.getColumnIndex(KEY_GENDER_USER)));
+                cursor.close();
+            }
+        }catch (Exception e){
+            Log.d("Exception : ", "Read user");
             return user;
         }
         return user;

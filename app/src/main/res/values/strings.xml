@@ -9,9 +9,9 @@
     <string name="connect">Connect</string>
     <string name="birth">Birth</string>
     <string name="register">Register</string>
-    <string name="name_hint">Name</string>
     <string name="password_hint">Password</string>
     <string name="email">Email</string>
     <string name="women">Women</string>
     <string name="men">Men</string>
+    <string name="name_hint">Name</string>
 </resources>

@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         //Check if inputs are OK
-        if(name.length() > 2 && password.length() > 4 && birthParsed.length() > 7 && email.length() > 5){
+        if(name.length() > 2 && password.length() > 4 && birthParsed.length() > 7 && email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")){
             User user =new User(name, password, birthParsed, email, genderNumber);
             Score score = new Score(email, 0);
             //Try to get a user, with the name inserted. If not, return null user

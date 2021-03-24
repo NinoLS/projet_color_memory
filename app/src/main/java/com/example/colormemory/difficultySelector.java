@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import database.Score;
+import database.ScoreManager;
+
 public class difficultySelector extends AppCompatActivity {
     //difficultés
     Button[] d_BTNS_DIFF;
@@ -29,11 +32,17 @@ public class difficultySelector extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty_selector);
 
+        //ScoreManager
+        ScoreManager scoreManager = new ScoreManager(this);
+        scoreManager.open();
+
         //user
         Intent intent = getIntent();
         String email = intent.getStringExtra("email");
+        Score userScore = scoreManager.readScore(email);
         
-        d_POINTS = 0;  //à changer par rapport à la BDD
+        d_POINTS = userScore.getScore();  //à changer par rapport à la BDD
+        scoreManager.close();
         tv_score = findViewById(R.id.tv_score);
         tv_score.setText("Score: " + d_POINTS);
 

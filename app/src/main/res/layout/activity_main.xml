@@ -40,18 +40,18 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/password_hint"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmail_input"
-        tools:ignore="TextFields" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail_input" />
 
     <!-- Button connect -->
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="23dp"
         android:onClick="login"
         android:text="@string/connect"
         app:layout_constraintEnd_toEndOf="parent"

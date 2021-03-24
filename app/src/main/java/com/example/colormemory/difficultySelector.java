@@ -149,6 +149,7 @@ public class difficultySelector extends AppCompatActivity {
         ScoreManager scoreManager = new ScoreManager(this);
         scoreManager.open();
         Score userScore = scoreManager.readScore(email);
+        userScore.setScore(d_POINTS);
         scoreManager.upgradeScore(userScore);
         scoreManager.close();
 

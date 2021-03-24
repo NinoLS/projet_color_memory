@@ -30,6 +30,9 @@ public class difficultySelector extends AppCompatActivity {
         setContentView(R.layout.activity_difficulty_selector);
 
         //user
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("email");
+        
         d_POINTS = 0;  //à changer par rapport à la BDD
         tv_score = findViewById(R.id.tv_score);
         tv_score.setText("Score: " + d_POINTS);
@@ -125,5 +128,12 @@ public class difficultySelector extends AppCompatActivity {
             tv_info_chrono.setTextColor(Color.BLACK);
         }
 
+    }
+
+    public void logout(View view) {
+        Intent intent = new Intent(difficultySelector.this,MainActivity.class);
+        intent.putExtra("POINTS",(float)d_POINTS);
+        setResult(Activity.RESULT_OK,intent);
+        finish(); //on sort
     }
 }

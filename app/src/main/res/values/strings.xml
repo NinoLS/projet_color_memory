@@ -23,4 +23,5 @@
     <string name="info_difficile">Difficile - 13 manches par niveau, séquence de 3 à 15 blocs, 2 vies.</string>
     <string name="info_expert">Expert - 16 manches par niveau, séquence de 5 à 20 blocs, 3 vies.</string>
     <string name="info_chrono">Chrono - Manches illimitées, séquence infinie, temps de réponse 1 secondes par bloc.</string>
+    <string name="deconnexion">Déconnexion</string>
 </resources>

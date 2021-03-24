@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
             if(!userForCheck.getName().equals("null")){
                 if(email.equals(userForCheck.getEmail()) && password.equals(userForCheck.getPassword())){
                     Log.d("INFO : ", "USER CONNECTED !");
+                    Intent intent = new Intent(this,difficultySelector.class);
+                    intent.putExtra("email",email);
+                    startActivityForResult(intent,0);
                 }else {
                     Log.d("WRONG : ", "Email or password invalid");
                     Toast.makeText(getBaseContext(), "Identifiants invalides", Toast.LENGTH_LONG).show();

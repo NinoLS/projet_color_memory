@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/score"
                 android:textSize="30sp" />
+
         </TableRow>
 
         <TableRow
@@ -108,6 +109,15 @@
                 android:text="@string/info"
                 android:backgroundTint="@color/my_grey"
                 android:onClick="displayInfo"/>
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_margin="10dp"
+                android:text="@string/deconnexion"
+                android:onClick="logout"/>
         </TableRow>
 
         <TextView

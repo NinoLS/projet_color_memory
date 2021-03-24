@@ -5,32 +5,22 @@ import androidx.annotation.NonNull;
 public class Score {
     private int id_score;
     private String email_user;
-    private int value_score;
+    private float value_score;
 
-    public Score(String _email_user, int _score){
+    public Score(String _email_user, float _score){
         this.setPlayer(_email_user);
         this.setScore(_score);
     }
 
-    public int getScore() {
+    public float getScore() {
         return value_score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         if(score < 0){
             throw new IllegalArgumentException();
         }else{
             this.value_score = score;
-        }
-    }
-
-    public void incrementScore(int score){
-        if(score < 0){
-            throw new IllegalArgumentException();
-        }else if(this.value_score == 0){
-            value_score = score;
-        }else{
-            this.value_score += score;
         }
     }
 

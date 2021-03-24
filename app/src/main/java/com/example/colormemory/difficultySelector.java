@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +29,8 @@ public class difficultySelector extends AppCompatActivity {
     TextView tv_info_expert;
     TextView tv_info_chrono;
 
+    String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +42,9 @@ public class difficultySelector extends AppCompatActivity {
 
         //user
         Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
+        email = intent.getStringExtra("email");
         Score userScore = scoreManager.readScore(email);
-        
+
         d_POINTS = userScore.getScore();  //à changer par rapport à la BDD
         scoreManager.close();
         tv_score = findViewById(R.id.tv_score);
@@ -141,7 +145,13 @@ public class difficultySelector extends AppCompatActivity {
 
     public void logout(View view) {
         Intent intent = new Intent(difficultySelector.this,MainActivity.class);
-        intent.putExtra("POINTS",(float)d_POINTS);
+
+        ScoreManager scoreManager = new ScoreManager(this);
+        scoreManager.open();
+        Score userScore = scoreManager.readScore(email);
+        scoreManager.upgradeScore(userScore);
+        scoreManager.close();
+
         setResult(Activity.RESULT_OK,intent);
         finish(); //on sort
     }

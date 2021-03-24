@@ -13,7 +13,7 @@ public class ScoreManager {
     public static final String CREATE_TABLE_SCORE = "CREATE TABLE `score` (\n" +
             "  `id_score` INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
             "  `email_user` VARCHAR(45) NOT NULL,\n" +
-            "  `value_score` INT NOT NULL);";
+            "  `value_score` FLOAT NOT NULL);";
 
     private MySQLite myDb;
     private SQLiteDatabase db;
@@ -49,7 +49,6 @@ public class ScoreManager {
             score.setScore(cursor.getInt(cursor.getColumnIndex(KEY_VALUE_SCORE)));
 
             cursor.close();
-            return score;
         }
         return score;
     }
@@ -57,16 +56,13 @@ public class ScoreManager {
     public int upgradeScore(Score _score){
         ContentValues values = new ContentValues();
 
-        String player = "'" + _score.getPlayer() + "'";
-        String score = "'" + _score.getScore() + "'";
 
-        values.put(KEY_EMAIL_USER, player);
-        values.put(KEY_VALUE_SCORE, score);
+        values.put(KEY_EMAIL_USER, _score.getPlayer());
+        values.put(KEY_VALUE_SCORE, _score.getScore());
 
         String whereClause = KEY_ID_SCORE + " = ?";
-        String[] whereClauseArgs = {_score.getPlayer() + ""};
 
-        return db.update(TABLE_NAME,values, whereClause, whereClauseArgs);
+        return db.update(TABLE_NAME,values, whereClause, new String[]{String.valueOf(_score.getIdScore())});
     }
 
     public int deleteScore(Score _score){

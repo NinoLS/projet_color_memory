@@ -14,4 +14,13 @@
     <string name="women">Women</string>
     <string name="men">Men</string>
     <string name="name_hint">Name</string>
+    <string name="login">login</string>
+    <string name="vies">Vies:</string>
+    <string name="niveau">Niveau:</string>
+    <string name="points">Points: 0</string>
+    <string name="info">?</string>
+    <string name="info_facile">Facile - 10 manches par niveau, séquence de 1 à 10 blocs, 2 vies.</string>
+    <string name="info_difficile">Difficile - 13 manches par niveau, séquence de 3 à 15 blocs, 2 vies.</string>
+    <string name="info_expert">Expert - 16 manches par niveau, séquence de 5 à 20 blocs, 3 vies.</string>
+    <string name="info_chrono">Chrono - Manches illimitées, séquence infinie, temps de réponse 1 secondes par bloc.</string>
 </resources>

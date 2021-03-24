@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ColorMemory">
-        <activity android:name=".difficultyFacile" />
         <activity android:name=".difficultySelector" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity">
@@ -18,5 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".difficultyStart"/>
     </application>
 </manifest>

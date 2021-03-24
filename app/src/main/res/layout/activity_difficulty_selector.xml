@@ -7,57 +7,132 @@
     tools:context=".difficultySelector">
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            >
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_facile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:text="@string/facile" />
+                android:onClick="startNiveauFacile"
+                android:text="@string/facile"
+                android:backgroundTint="@color/my_blue_green" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_difficile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:text="@string/difficile" />
+                android:enabled="true"
+                android:onClick="startNiveauDifficile"
+                android:text="@string/difficile"
+                android:backgroundTint="@color/my_orange"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_expert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:enabled="true"
+                android:onClick="startNiveauExpert"
                 android:text="@string/expert"
-                android:layout_margin="3dp" />
+                android:backgroundTint="@color/my_red"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
             <Button
                 android:id="@+id/btn_chrono"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:text="@string/chrono" />
-
+                android:enabled="true"
+                android:onClick="startNiveauChrono"
+                android:text="@string/chrono"
+                android:backgroundTint="@color/my_violet"/>
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="20dp" >
+
+            <Button
+                android:id="@+id/btn_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info"
+                android:backgroundTint="@color/my_grey"
+                android:onClick="displayInfo"/>
+        </TableRow>
+
+        <TextView
+            android:id="@+id/tv_info_facile"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_facile" />
+        <TextView
+            android:id="@+id/tv_info_difficile"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_difficile" />
+        <TextView
+            android:id="@+id/tv_info_expert"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_expert" />
+        <TextView
+            android:id="@+id/tv_info_chrono"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:text="@string/info_chrono" />
+
+
     </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

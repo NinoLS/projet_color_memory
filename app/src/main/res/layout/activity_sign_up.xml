@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Password input -->
+    <!-- Login input -->
     <EditText
         android:id="@+id/login_input"
         android:layout_width="wrap_content"
@@ -25,13 +25,13 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/name_hint"
-        android:inputType="textPassword"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUp_title" />
 
-    <!-- Date input -->
+    <!-- Password input -->
     <EditText
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/password_hint"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"

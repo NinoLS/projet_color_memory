@@ -16,7 +16,7 @@ import android.widget.TextView;
 import database.Score;
 import database.ScoreManager;
 
-public class difficultySelector extends AppCompatActivity {
+public class     difficultySelector extends AppCompatActivity {
     //difficultés
     Button[] d_BTNS_DIFF;
     int d_DIFF = 0;
@@ -69,7 +69,7 @@ public class difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("DIFF",0);
         intent.putExtra("MANCHE_MIN",1);
-        intent.putExtra("MANCHE_MAX",3); //à changer 3 par 10
+        intent.putExtra("MANCHE_MAX",10);
         intent.putExtra("TEMPS_REPONSE",0);
         intent.putExtra("VIES",2);
         intent.putExtra("POIDS",1);

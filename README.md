@@ -1,5 +1,6 @@
 # Projet ColorMemory
 **Nino BELIC & Hugo BENABDELHAK**
+**nino.belic@etud.u-picardie.fr & hugo.benabdelhak@etud.u-picardie.fr**
 ## I - Introduction
 
 ### Présentation

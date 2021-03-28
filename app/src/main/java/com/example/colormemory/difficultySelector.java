@@ -17,19 +17,19 @@ import database.Score;
 import database.ScoreManager;
 
 public class     difficultySelector extends AppCompatActivity {
-    //difficultés
+    //variables globales
     Button[] d_BTNS_DIFF;
     int d_DIFF = 0;
-
-    //
     float d_POINTS;
+    String email;
+
+    //textviews
     TextView tv_score;
     TextView tv_info_facile;
     TextView tv_info_difficile;
     TextView tv_info_expert;
     TextView tv_info_chrono;
 
-    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +40,20 @@ public class     difficultySelector extends AppCompatActivity {
         ScoreManager scoreManager = new ScoreManager(this);
         scoreManager.open();
 
-        //user
+        //Récupération infos user
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         Score userScore = scoreManager.readScore(email);
-
         d_POINTS = userScore.getScore();  //à changer par rapport à la BDD
         scoreManager.close();
-        tv_score = findViewById(R.id.tv_score);
-        tv_score.setText("Score: " + d_POINTS);
 
-
+        //textviews
         tv_info_facile = findViewById(R.id.tv_info_facile);
         tv_info_difficile = findViewById(R.id.tv_info_difficile);
         tv_info_expert = findViewById(R.id.tv_info_expert);
         tv_info_chrono = findViewById(R.id.tv_info_chrono);
-
+        tv_score = findViewById(R.id.tv_score);
+        tv_score.setText("Score: " + d_POINTS);
 
         //boutons de difficultés
         d_BTNS_DIFF = new Button[4];
@@ -102,8 +100,8 @@ public class     difficultySelector extends AppCompatActivity {
         Intent intent = new Intent(difficultySelector.this,difficultyStart.class);
         intent.putExtra("DIFF",3);
         intent.putExtra("MANCHE_MIN",1);
-        intent.putExtra("MANCHE_MAX",250); //250 byte, maximum ?? (ou 0 - infini?)
-        intent.putExtra("TEMPS_REPONSE",2); //2 secondes par boutons
+        intent.putExtra("MANCHE_MAX",250); //on met quand même une valeur max
+        intent.putExtra("TEMPS_REPONSE",2); //1s par bouton (2s trop facile)
         intent.putExtra("VIES",3);
         intent.putExtra("POIDS",2);
 

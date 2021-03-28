@@ -140,8 +140,8 @@ public class difficultyStart extends AppCompatActivity {
             switchOnBouton(0); //lance la sequence (récursivité)
             if(n_DIFF < 3)
                 listenSequence();
-            //else chronoSequence(); //fait dans le CountDownTimer (sequence boutons)
-            if(n_DIFF == 3 && (n_MANCHE-1)%5==0) //points toutes les 5 manches (chrono) à changer ?
+            //else chronoSequence(); => dans le CountDownTimer (sequence boutons)
+            if(n_DIFF == 3 && (n_MANCHE-1)%5==0) //points toutes les 5 manches (mode chrono)
             {
                 n_POINTS += n_POIDS * (n_MANCHE-1)/5;
                 tv_points.setText("Points: " + n_POINTS);
@@ -158,7 +158,7 @@ public class difficultyStart extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     public void switchOnBouton(int button_count)
     {
-        if(button_count < n_MANCHE) //ex: [facile,manche 0] => 1 bouton
+        if(button_count < n_MANCHE) //ex: [facile,manche 0] => séquence de 1 bouton
         {
             //tirage au sort + stockage sequence
             if(random_sequence[button_count] == null)
@@ -176,8 +176,7 @@ public class difficultyStart extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     btns[random_sequence[button_count]].setBackgroundColor(Color.BLACK);
-                    //btns[random_sequence[button_count]].setText(String.valueOf(button_count+1));
-                }
+                     }
             }.start();
 
             //eteindre button
@@ -218,14 +217,6 @@ public class difficultyStart extends AppCompatActivity {
                     {
                         setEnableButtons(false);
                         finishManche(compareTwoTab(pressed_sequence,random_sequence));
-                        //manche gagné si les 2 séquences sont identiques
-                        /* //CORRESPOND A :
-                        if(compareTwoTab(pressed_sequence,random_sequence))
-
-                            finishManche(true);
-                        else
-                            finishManche(false);
-                        */
                     }
                 }
             });
@@ -252,8 +243,8 @@ public class difficultyStart extends AppCompatActivity {
         }
 
         //difficulté 3 <=> TIMER
-        chrono = true;                          //1000 (ms->s) trop long, trop facile
-        new CountDownTimer(n_TEMPS_REPONSE*600*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
+        chrono = true;
+        new CountDownTimer(n_TEMPS_REPONSE*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -315,11 +306,10 @@ public class difficultyStart extends AppCompatActivity {
                         n_VIES--;
                         tv_vies.setText("Vies: " + n_VIES);
                         startNiveau(); //on recommence le niveau
-                        //Toast.makeText(difficultyStart.this, "Encore "+n_VIES+" vie"+((n_VIES>1)?"s":""), Toast.LENGTH_SHORT).show();
-                    }
+                        }
                     else
                     {
-                        //plus de vies => on sort ? OU retour au niveau 1
+                        //plus de vies => on sort
                         n_NIVEAU = 0;
                         Intent intent = new Intent(difficultyStart.this,difficultySelector.class);
                         intent.putExtra("POINTS",(float)n_POINTS);

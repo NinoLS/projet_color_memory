@@ -244,7 +244,7 @@ public class difficultyStart extends AppCompatActivity {
 
         //difficulté 3 <=> TIMER
         chrono = true;
-        new CountDownTimer(n_TEMPS_REPONSE*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
+        new CountDownTimer(n_TEMPS_REPONSE*1000*n_MANCHE,n_TEMPS_REPONSE*1000*n_MANCHE)
         {
             @Override
             public void onTick(long millisUntilFinished) {
